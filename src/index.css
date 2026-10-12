@@ -245,93 +245,151 @@ p, .font-body-desc {
 }
 
 /* -------------------------------------------------------------
-   3 Layered Asymmetrical Emerald Morphing & Rotating Shapes
+   Near-Realistic Bioluminescent Jellyfish Jelly Visual Effect
    ------------------------------------------------------------- */
-@keyframes rotateCW {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes jellyBellMorph {
+  0% {
+    border-radius: 56% 44% 48% 52% / 52% 48% 52% 48%;
+    transform: rotate(0deg) scale(1) translate3d(0, 0, 0);
+  }
+  25% {
+    border-radius: 50% 50% 54% 46% / 46% 54% 46% 54%;
+    transform: rotate(4deg) scale(1.02, 0.98) translate3d(3px, -4px, 0);
+  }
+  50% {
+    border-radius: 54% 46% 42% 58% / 58% 42% 58% 42%;
+    transform: rotate(-3deg) scale(0.98, 1.03) translate3d(-3px, 4px, 0);
+  }
+  75% {
+    border-radius: 46% 54% 50% 50% / 48% 52% 48% 52%;
+    transform: rotate(3deg) scale(1.01, 0.99) translate3d(2px, 1px, 0);
+  }
+  100% {
+    border-radius: 56% 44% 48% 52% / 52% 48% 52% 48%;
+    transform: rotate(0deg) scale(1) translate3d(0, 0, 0);
+  }
 }
 
-@keyframes rotateCCW {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(-360deg); }
+@keyframes jellyMantleMorph {
+  0% {
+    border-radius: 48% 52% 54% 46% / 46% 54% 46% 54%;
+    transform: rotate(0deg) scale(0.97) translate3d(0, 0, 0);
+  }
+  33% {
+    border-radius: 54% 46% 46% 54% / 54% 44% 56% 46%;
+    transform: rotate(-6deg) scale(1.03) translate3d(-3px, 3px, 0);
+  }
+  66% {
+    border-radius: 44% 56% 52% 48% / 44% 54% 46% 56%;
+    transform: rotate(5deg) scale(0.96) translate3d(3px, -3px, 0);
+  }
+  100% {
+    border-radius: 48% 52% 54% 46% / 46% 54% 46% 54%;
+    transform: rotate(0deg) scale(0.97) translate3d(0, 0, 0);
+  }
 }
 
-@keyframes driftRotate {
-  0% { transform: rotate(-8deg) scale(0.97); }
-  50% { transform: rotate(8deg) scale(1.03); }
-  100% { transform: rotate(-8deg) scale(0.97); }
+@keyframes jellyCorePulse {
+  0% {
+    transform: scale(0.93) translate3d(0, 0, 0);
+    opacity: 0.88;
+  }
+  50% {
+    transform: scale(1.08) translate3d(1px, -2px, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.93) translate3d(0, 0, 0);
+    opacity: 0.88;
+  }
 }
 
-@keyframes morphOne {
-  0% { border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%; }
-  33% { border-radius: 46% 54% 56% 44% / 48% 56% 44% 52%; }
-  66% { border-radius: 56% 44% 46% 54% / 44% 50% 50% 56%; }
-  100% { border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%; }
+@keyframes jellySheenFloat {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-16deg) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(5px, -3px, 0) rotate(-10deg) scale(1.06);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-16deg) scale(1);
+    opacity: 0.8;
+  }
 }
 
-@keyframes morphTwo {
-  0% { border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%; }
-  33% { border-radius: 56% 44% 42% 58% / 58% 42% 56% 44%; }
-  66% { border-radius: 42% 58% 54% 46% / 48% 54% 46% 52%; }
-  100% { border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%; }
-}
-
-@keyframes morphThree {
-  0% { border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%; }
-  50% { border-radius: 44% 56% 54% 46% / 48% 56% 44% 52%; }
-  100% { border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%; }
-}
-
-/* Shape 1: Deep Botanical Foundation (140° gradient, clockwise rotation) */
-.emerald-shape-primary {
-  background: linear-gradient(140deg, #138541 0%, #0A6E35 48%, #023D1A 100%);
-  border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%;
-  box-shadow: 0 24px 60px -15px rgba(2, 61, 26, 0.32);
+/* Layer 1: Outer Translucent Jelly Body with Refractive Glass Sheen & Volumetric Depth */
+.jelly-body-outer {
+  background: radial-gradient(circle at 42% 38%, rgba(52, 211, 153, 0.42) 0%, rgba(22, 163, 74, 0.6) 28%, rgba(10, 110, 53, 0.8) 60%, rgba(2, 61, 26, 0.9) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    /* Specular razor-sharp surface glint */
+    inset 1px 2px 4px 0px rgba(255, 255, 255, 0.95),
+    /* Soft upper refractive dome highlight */
+    inset 8px 14px 32px -4px rgba(255, 255, 255, 0.5),
+    /* Deep interior viscous shadow / thickness */
+    inset -10px -16px 40px -4px rgba(0, 30, 10, 0.8),
+    /* Lower aquatic bounce caustic */
+    inset -2px -4px 18px 0px rgba(74, 222, 128, 0.55),
+    /* Soft ambient green bioluminescent dispersion */
+    0 24px 60px -12px rgba(2, 61, 26, 0.4),
+    0 8px 24px -4px rgba(10, 110, 53, 0.25);
   transform-origin: center center;
-  -webkit-transform-origin: center center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   will-change: transform, border-radius;
-  animation: rotateCW 26s linear infinite, morphOne 14s ease-in-out infinite alternate;
-  -webkit-animation: rotateCW 26s linear infinite, morphOne 14s ease-in-out infinite alternate;
+  animation: jellyBellMorph 16s ease-in-out infinite;
 }
 
-/* Shape 2: Luminous Jade Mid-Layer (230° gradient, counter-clockwise rotation) */
-.emerald-shape-secondary {
-  background: linear-gradient(230deg, rgba(31, 167, 86, 0.9) 0%, rgba(14, 119, 60, 0.85) 50%, rgba(3, 73, 33, 0.8) 100%);
-  border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%;
+/* Layer 2: Secondary Outer Translucent Viscous Mantle (adds jellyfish multi-membrane look) */
+.jelly-mantle-secondary {
+  background: radial-gradient(circle at 55% 45%, rgba(74, 222, 128, 0.35) 0%, rgba(22, 163, 74, 0.45) 40%, rgba(2, 61, 26, 0.3) 85%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    inset 1px 1px 3px 0px rgba(255, 255, 255, 0.7),
+    inset -4px -6px 20px -2px rgba(0, 38, 14, 0.5);
   opacity: 0.85;
   transform-origin: center center;
-  -webkit-transform-origin: center center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   will-change: transform, border-radius;
-  animation: rotateCCW 22s linear infinite, morphTwo 16s ease-in-out infinite alternate;
-  -webkit-animation: rotateCCW 22s linear infinite, morphTwo 16s ease-in-out infinite alternate;
+  animation: jellyMantleMorph 20s ease-in-out infinite;
 }
 
-/* Shape 3: Ambient Diffused Highlight (320° gradient, drifting rotation + blur) */
-.emerald-shape-tertiary {
-  background: linear-gradient(320deg, rgba(41, 196, 101, 0.65) 0%, rgba(22, 133, 65, 0.45) 50%, rgba(2, 61, 26, 0.2) 100%);
-  border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%;
-  filter: blur(18px);
-  -webkit-filter: blur(18px);
-  opacity: 0.8;
-  transform-origin: center center;
-  -webkit-transform-origin: center center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  will-change: transform, border-radius;
-  animation: driftRotate 18s ease-in-out infinite alternate, morphThree 12s ease-in-out infinite alternate;
-  -webkit-animation: driftRotate 18s ease-in-out infinite alternate, morphThree 12s ease-in-out infinite alternate;
+/* Layer 3: Bioluminescent Glowing Emerald Core (The Nucleus) */
+.jelly-emerald-core {
+  background: radial-gradient(circle at 48% 46%, #34D399 0%, #16A34A 28%, #0A6E35 58%, #023D1A 88%, transparent 100%);
+  filter: blur(7px);
+  -webkit-filter: blur(7px);
+  will-change: transform, opacity;
+  animation: jellyCorePulse 7s ease-in-out infinite;
+}
+
+/* Layer 4: Wet Specular Highlight Glint (Glossy silicone / aquatic reflection) */
+.jelly-specular-glint {
+  background: radial-gradient(ellipse at 45% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.45) 35%, transparent 72%);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  -webkit-filter: blur(1.5px);
+  transform: rotate(-16deg);
+  will-change: transform, opacity;
+  animation: jellySheenFloat 12s ease-in-out infinite;
+}
+
+/* Layer 5: Sub-surface Secondary Rim Caustic Highlight */
+.jelly-rim-caustic {
+  background: radial-gradient(ellipse at 50% 50%, rgba(134, 239, 172, 0.6) 0%, rgba(34, 197, 94, 0.25) 45%, transparent 75%);
+  border-radius: 50%;
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+  opacity: 0.7;
 }
 
 /* Reduced Motion Safety */
 @media (prefers-reduced-motion: reduce) {
-  .emerald-shape-primary,
-  .emerald-shape-secondary,
-  .emerald-shape-tertiary {
+  .jelly-body-outer,
+  .jelly-mantle-secondary,
+  .jelly-emerald-core,
+  .jelly-specular-glint {
     animation: none !important;
   }
 }

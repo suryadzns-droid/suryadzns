@@ -267,25 +267,43 @@ export const HeroSection: React.FC = () => {
             {/* Portrait Stage Container - Fully unclipped */}
             <div className="relative w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[370px] md:max-w-[420px] lg:max-w-[450px] xl:max-w-[480px] flex items-center justify-center">
               
-              {/* 3 Rotating Shapes Centered in Background (Unclipped) */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                {/* Layer 3: Ambient Diffused Highlight (Drift rotation + blur) */}
+              {/* Realistic Bioluminescent Jellyfish Jelly Background Visual Effect */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                {/* Layer 0: Ambient Sub-surface Bioluminescent Glow Bloom */}
                 <div
-                  className="emerald-shape-tertiary absolute w-[92%] h-[92%] z-0"
+                  className="absolute w-[94%] h-[94%] rounded-full blur-[44px] opacity-45 bg-[radial-gradient(circle,_#22C55E_0%,_#16A34A_35%,_#0A6E35_65%,_transparent_78%)]"
                   aria-hidden="true"
                 />
 
-                {/* Layer 2: Luminous Jade Mid-Layer (230° angle, counter-clockwise rotation) */}
+                {/* Layer 1: Secondary Outer Viscous Mantle (Translucent membrane) */}
                 <div
-                  className="emerald-shape-secondary absolute w-[86%] h-[86%] z-0"
+                  className="jelly-mantle-secondary absolute w-[88%] h-[88%] z-0"
                   aria-hidden="true"
                 />
 
-                {/* Layer 1: Deep Botanical Foundation (140° angle, clockwise rotation) */}
+                {/* Layer 2: Primary Translucent Jelly Body with Refractive Glass Inset Shadows */}
                 <div
-                  className="emerald-shape-primary absolute w-[82%] h-[82%] z-0"
+                  className="jelly-body-outer relative w-[82%] h-[82%] z-0 overflow-hidden flex items-center justify-center"
                   aria-hidden="true"
-                />
+                >
+                  {/* Layer 3: Glowing Emerald Core at the Nucleus */}
+                  <div
+                    className="jelly-emerald-core absolute w-[65%] h-[65%] rounded-full z-0"
+                    aria-hidden="true"
+                  />
+
+                  {/* Layer 4: Upper-Left Wet Specular Highlight Glint */}
+                  <div
+                    className="jelly-specular-glint absolute top-[8%] left-[10%] w-[40%] h-[22%] z-10"
+                    aria-hidden="true"
+                  />
+
+                  {/* Layer 5: Lower-Right Sub-surface Caustic Refraction */}
+                  <div
+                    className="jelly-rim-caustic absolute bottom-[10%] right-[12%] w-[34%] h-[20%] z-10"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* Full, Uncropped Studio Portrait Photo */}
