@@ -245,84 +245,121 @@ p, .font-body-desc {
 }
 
 /* -------------------------------------------------------------
-   Near-Realistic Bioluminescent Jellyfish Jelly Visual Effect
+   Prominently Visible Bioluminescent Jellyfish Jelly Physics
    ------------------------------------------------------------- */
 @keyframes jellyBellMorph {
   0% {
-    border-radius: 56% 44% 48% 52% / 52% 48% 52% 48%;
+    border-radius: 60% 40% 45% 55% / 52% 46% 54% 48%;
     transform: rotate(0deg) scale(1) translate3d(0, 0, 0);
   }
-  25% {
-    border-radius: 50% 50% 54% 46% / 46% 54% 46% 54%;
-    transform: rotate(4deg) scale(1.02, 0.98) translate3d(3px, -4px, 0);
+  20% {
+    /* Fluid contraction & upward swimming impulse */
+    border-radius: 44% 56% 62% 38% / 42% 62% 38% 58%;
+    transform: rotate(5deg) scale(1.06, 0.93) translate3d(8px, -12px, 0);
   }
-  50% {
-    border-radius: 54% 46% 42% 58% / 58% 42% 58% 42%;
-    transform: rotate(-3deg) scale(0.98, 1.03) translate3d(-3px, 4px, 0);
+  45% {
+    /* Lateral elastic squish & volumetric spread */
+    border-radius: 64% 36% 36% 64% / 66% 34% 66% 34%;
+    transform: rotate(-5deg) scale(0.92, 1.08) translate3d(-8px, 10px, 0);
   }
-  75% {
-    border-radius: 46% 54% 50% 50% / 48% 52% 48% 52%;
-    transform: rotate(3deg) scale(1.01, 0.99) translate3d(2px, 1px, 0);
+  70% {
+    /* Undulating wave through the gelatinous mantle */
+    border-radius: 40% 60% 54% 46% / 48% 54% 46% 52%;
+    transform: rotate(4deg) scale(1.04, 0.96) translate3d(7px, 2px, 0);
+  }
+  85% {
+    /* Soft damped recoil glide */
+    border-radius: 54% 46% 48% 52% / 50% 50% 50% 50%;
+    transform: rotate(-2deg) scale(0.98, 1.02) translate3d(-3px, -4px, 0);
   }
   100% {
-    border-radius: 56% 44% 48% 52% / 52% 48% 52% 48%;
+    border-radius: 60% 40% 45% 55% / 52% 46% 54% 48%;
     transform: rotate(0deg) scale(1) translate3d(0, 0, 0);
   }
 }
 
 @keyframes jellyMantleMorph {
   0% {
-    border-radius: 48% 52% 54% 46% / 46% 54% 46% 54%;
-    transform: rotate(0deg) scale(0.97) translate3d(0, 0, 0);
+    border-radius: 44% 56% 58% 42% / 46% 58% 42% 54%;
+    transform: rotate(0deg) scale(0.96) translate3d(0, 0, 0);
   }
-  33% {
-    border-radius: 54% 46% 46% 54% / 54% 44% 56% 46%;
-    transform: rotate(-6deg) scale(1.03) translate3d(-3px, 3px, 0);
+  28% {
+    /* Counter-phase fluid lag */
+    border-radius: 60% 40% 38% 62% / 62% 38% 62% 38%;
+    transform: rotate(-8deg) scale(1.07, 0.93) translate3d(-12px, 10px, 0);
   }
-  66% {
-    border-radius: 44% 56% 52% 48% / 44% 54% 46% 56%;
-    transform: rotate(5deg) scale(0.96) translate3d(3px, -3px, 0);
+  55% {
+    border-radius: 38% 62% 58% 42% / 40% 60% 42% 60%;
+    transform: rotate(7deg) scale(0.93, 1.07) translate3d(10px, -10px, 0);
+  }
+  80% {
+    border-radius: 56% 44% 46% 54% / 54% 46% 56% 44%;
+    transform: rotate(-4deg) scale(1.03) translate3d(-5px, 3px, 0);
   }
   100% {
-    border-radius: 48% 52% 54% 46% / 46% 54% 46% 54%;
-    transform: rotate(0deg) scale(0.97) translate3d(0, 0, 0);
+    border-radius: 44% 56% 58% 42% / 46% 58% 42% 54%;
+    transform: rotate(0deg) scale(0.96) translate3d(0, 0, 0);
   }
 }
 
 @keyframes jellyCorePulse {
   0% {
-    transform: scale(0.93) translate3d(0, 0, 0);
-    opacity: 0.88;
+    transform: scale(0.85) translate3d(0, 0, 0);
+    opacity: 0.8;
+    filter: blur(8px);
   }
   50% {
-    transform: scale(1.08) translate3d(1px, -2px, 0);
+    /* Pronounced bioluminescent heartbeat bloom */
+    transform: scale(1.18) translate3d(3px, -6px, 0);
     opacity: 1;
+    filter: blur(5px);
   }
   100% {
-    transform: scale(0.93) translate3d(0, 0, 0);
-    opacity: 0.88;
+    transform: scale(0.85) translate3d(0, 0, 0);
+    opacity: 0.8;
+    filter: blur(8px);
   }
 }
 
 @keyframes jellySheenFloat {
   0% {
-    transform: translate3d(0, 0, 0) rotate(-16deg) scale(1);
-    opacity: 0.8;
+    transform: translate3d(0, 0, 0) rotate(-22deg) scale(0.92);
+    opacity: 0.72;
   }
-  50% {
-    transform: translate3d(5px, -3px, 0) rotate(-10deg) scale(1.06);
-    opacity: 0.95;
+  35% {
+    /* Gliding surface glare tracking the dome flex */
+    transform: translate3d(16px, -10px, 0) rotate(-10deg) scale(1.18);
+    opacity: 1;
+  }
+  70% {
+    transform: translate3d(-10px, 8px, 0) rotate(-28deg) scale(1.04);
+    opacity: 0.82;
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(-16deg) scale(1);
-    opacity: 0.8;
+    transform: translate3d(0, 0, 0) rotate(-22deg) scale(0.92);
+    opacity: 0.72;
+  }
+}
+
+@keyframes jellyAuraBreathe {
+  0% {
+    transform: scale(0.9) translate3d(0, 0, 0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.12) translate3d(0, -8px, 0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0.9) translate3d(0, 0, 0);
+    opacity: 0.35;
   }
 }
 
 /* Layer 1: Outer Translucent Jelly Body with Refractive Glass Sheen & Volumetric Depth */
 .jelly-body-outer {
-  background: radial-gradient(circle at 42% 38%, rgba(52, 211, 153, 0.42) 0%, rgba(22, 163, 74, 0.6) 28%, rgba(10, 110, 53, 0.8) 60%, rgba(2, 61, 26, 0.9) 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  background: radial-gradient(circle at 42% 38%, rgba(52, 211, 153, 0.45) 0%, rgba(22, 163, 74, 0.62) 28%, rgba(10, 110, 53, 0.82) 60%, rgba(2, 61, 26, 0.92) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow:
@@ -335,24 +372,24 @@ p, .font-body-desc {
     /* Lower aquatic bounce caustic */
     inset -2px -4px 18px 0px rgba(74, 222, 128, 0.55),
     /* Soft ambient green bioluminescent dispersion */
-    0 24px 60px -12px rgba(2, 61, 26, 0.4),
-    0 8px 24px -4px rgba(10, 110, 53, 0.25);
+    0 24px 60px -12px rgba(2, 61, 26, 0.45),
+    0 8px 24px -4px rgba(10, 110, 53, 0.28);
   transform-origin: center center;
   will-change: transform, border-radius;
-  animation: jellyBellMorph 16s ease-in-out infinite;
+  animation: jellyBellMorph 7s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 /* Layer 2: Secondary Outer Translucent Viscous Mantle (adds jellyfish multi-membrane look) */
 .jelly-mantle-secondary {
-  background: radial-gradient(circle at 55% 45%, rgba(74, 222, 128, 0.35) 0%, rgba(22, 163, 74, 0.45) 40%, rgba(2, 61, 26, 0.3) 85%, transparent 100%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: radial-gradient(circle at 55% 45%, rgba(74, 222, 128, 0.38) 0%, rgba(22, 163, 74, 0.48) 40%, rgba(2, 61, 26, 0.35) 85%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow:
-    inset 1px 1px 3px 0px rgba(255, 255, 255, 0.7),
-    inset -4px -6px 20px -2px rgba(0, 38, 14, 0.5);
-  opacity: 0.85;
+    inset 1px 1px 3px 0px rgba(255, 255, 255, 0.75),
+    inset -4px -6px 20px -2px rgba(0, 38, 14, 0.55);
+  opacity: 0.88;
   transform-origin: center center;
   will-change: transform, border-radius;
-  animation: jellyMantleMorph 20s ease-in-out infinite;
+  animation: jellyMantleMorph 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
 /* Layer 3: Bioluminescent Glowing Emerald Core (The Nucleus) */
@@ -361,27 +398,33 @@ p, .font-body-desc {
   filter: blur(7px);
   -webkit-filter: blur(7px);
   will-change: transform, opacity;
-  animation: jellyCorePulse 7s ease-in-out infinite;
+  animation: jellyCorePulse 4s ease-in-out infinite;
 }
 
 /* Layer 4: Wet Specular Highlight Glint (Glossy silicone / aquatic reflection) */
 .jelly-specular-glint {
-  background: radial-gradient(ellipse at 45% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.45) 35%, transparent 72%);
+  background: radial-gradient(ellipse at 45% 40%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.48) 35%, transparent 72%);
   border-radius: 50%;
   filter: blur(1.5px);
   -webkit-filter: blur(1.5px);
   transform: rotate(-16deg);
   will-change: transform, opacity;
-  animation: jellySheenFloat 12s ease-in-out infinite;
+  animation: jellySheenFloat 5.5s ease-in-out infinite;
 }
 
 /* Layer 5: Sub-surface Secondary Rim Caustic Highlight */
 .jelly-rim-caustic {
-  background: radial-gradient(ellipse at 50% 50%, rgba(134, 239, 172, 0.6) 0%, rgba(34, 197, 94, 0.25) 45%, transparent 75%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(134, 239, 172, 0.65) 0%, rgba(34, 197, 94, 0.3) 45%, transparent 75%);
   border-radius: 50%;
   filter: blur(3px);
   -webkit-filter: blur(3px);
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+/* Layer 0: Aura breathe */
+.jelly-ambient-aura {
+  animation: jellyAuraBreathe 6s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Reduced Motion Safety */

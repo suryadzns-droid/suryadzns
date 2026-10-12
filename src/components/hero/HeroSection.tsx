@@ -271,7 +271,7 @@ export const HeroSection: React.FC = () => {
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                 {/* Layer 0: Ambient Sub-surface Bioluminescent Glow Bloom */}
                 <div
-                  className="absolute w-[94%] h-[94%] rounded-full blur-[44px] opacity-45 bg-[radial-gradient(circle,_#22C55E_0%,_#16A34A_35%,_#0A6E35_65%,_transparent_78%)]"
+                  className="jelly-ambient-aura absolute w-[94%] h-[94%] rounded-full blur-[44px] opacity-45 bg-[radial-gradient(circle,_#22C55E_0%,_#16A34A_35%,_#0A6E35_65%,_transparent_78%)]"
                   aria-hidden="true"
                 />
 
