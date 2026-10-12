@@ -1,0 +1,452 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Rich Botanical Emerald Palette (Extracted directly from reference image) */
+  --color-emerald-primary: #0A6E35;
+  --color-emerald-light: #168541;
+  --color-emerald-deep: #023D1A;
+  --color-emerald-dark: #002E14;
+  --color-green-pale: #EAF6EE;
+  --color-green-muted: #BBDBC5;
+  --color-text-main: #111111;
+  --color-text-secondary: #444444;
+}
+
+:root {
+  /* Core Color System (60% White / 30% Emerald / 10% Complementary) */
+  --bg-primary: #FFFFFF;
+  --text-main: #111111;
+  --text-secondary: #444444;
+  --text-muted: #767676;
+  
+  /* Luminous Botanical Emerald Spectrum */
+  --emerald-primary: #0A6E35;
+  --emerald-light: #168541;
+  --emerald-deep: #023D1A;
+  --emerald-dark: #002E14;
+  
+  /* Supporting Atmosphere (Mist & Muted Canopy) */
+  --green-pale: #EAF6EE;
+  --green-muted: #BBDBC5;
+  --green-border: rgba(10, 110, 53, 0.16);
+  
+  /* Primary Button Gradient Tokens (Luminous Tree Canopy to Deep Shadow Trunk) */
+  --gradient-btn-emerald: linear-gradient(135deg, #168541 0%, #0A6E35 52%, #023D1A 100%);
+  --gradient-btn-emerald-hover: linear-gradient(135deg, #117537 0%, #075F2C 52%, #013014 100%);
+  --gradient-btn-emerald-active: linear-gradient(135deg, #0d612d 0%, #044E24 52%, #00240E 100%);
+
+  /* Typography */
+  --font-heading: "DM Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Spacing & Radii (Strictly restrained small radius: 4px–6px, no pill shapes) */
+  --radius-subtle: 4px;
+  --radius-card: 6px;
+
+  /* Motion & Easing */
+  --ease-natural: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-fast: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-base: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Document Reset & Typography */
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  scroll-behavior: auto; /* Preserve native browser scrolling, no hijack */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  color: #111111;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-weight: 300;
+}
+
+/* Heading Typography Specs: DM Sans Light (300), tight tracking, controlled line-height */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.028em;
+  color: #111111;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.028em;
+}
+
+/* Body Descriptions: Inter Light (300), 17-19px desktop, 16-17px mobile, line-height 1.6-1.75 */
+p, .font-body-desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.68;
+  color: #444444;
+}
+
+@media (min-width: 768px) {
+  p, .font-body-desc {
+    font-size: 1.125rem; /* ~18px */
+    line-height: 1.72;
+  }
+}
+
+@media (max-width: 767px) {
+  p, .font-body-desc {
+    font-size: 1.03rem; /* ~16.5px */
+    line-height: 1.64;
+  }
+}
+
+/* UI / Nav / Labels: Inter Regular (400) */
+.font-ui {
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+/* Primary Emerald Gradient Button System */
+.btn-emerald-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-btn-emerald);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.875rem 1.625rem;
+  border-radius: var(--radius-subtle);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 77, 59, 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 260ms var(--ease-natural),
+              box-shadow 260ms var(--ease-natural),
+              filter 260ms var(--ease-natural);
+  position: relative;
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .btn-emerald-primary:hover {
+    background: var(--gradient-btn-emerald-hover);
+    box-shadow: 0 2px 6px rgba(0, 77, 59, 0.16);
+  }
+  
+  .btn-emerald-primary:active {
+    background: var(--gradient-btn-emerald-active);
+  }
+  
+  /* Arrow translation on desktop hover: small controlled 4-5px shift */
+  .btn-emerald-primary:hover .btn-arrow-icon {
+    transform: translateX(4px);
+  }
+}
+
+.btn-arrow-icon {
+  display: inline-block;
+  margin-left: 0.5rem;
+  transition: transform 240ms var(--ease-natural);
+}
+
+.btn-emerald-primary:focus-visible {
+  outline: 2px solid var(--emerald-primary);
+  outline-offset: 3px;
+}
+
+/* Secondary Button System (Restrained minimal border) */
+.btn-emerald-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #111111;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.875rem 1.625rem;
+  border-radius: var(--radius-subtle);
+  border: 1px solid var(--green-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 220ms var(--ease-natural),
+              background-color 220ms var(--ease-natural),
+              color 220ms var(--ease-natural);
+}
+
+@media (min-width: 768px) {
+  .btn-emerald-secondary:hover {
+    border-color: var(--emerald-primary);
+    background-color: var(--green-pale);
+    color: var(--emerald-deep);
+  }
+}
+
+.btn-emerald-secondary:focus-visible {
+  outline: 2px solid var(--emerald-primary);
+  outline-offset: 3px;
+}
+
+/* Line reveal mask wrapper for GSAP SplitText line reveals */
+.split-line-wrapper {
+  overflow: hidden;
+  display: block;
+  line-height: 1.18;
+}
+
+.split-line-child {
+  display: block;
+  transform: translateY(0);
+}
+
+/* Dedicated Hero Section Line Mask & Descender Protection */
+.hero-line-mask {
+  overflow: hidden;
+  display: block;
+  line-height: inherit;
+  padding-bottom: 0.05em;
+  margin-bottom: -0.05em;
+}
+
+.hero-split-line {
+  display: block;
+  transform: translateY(0);
+}
+
+/* Primary Hero CTA Button */
+.hero-primary-cta {
+  background: var(--gradient-btn-emerald);
+  transition: background 220ms var(--ease-natural),
+              box-shadow 220ms var(--ease-natural);
+}
+
+@media (min-width: 768px) {
+  .hero-primary-cta:hover {
+    background: var(--gradient-btn-emerald-hover);
+    box-shadow: 0 2px 8px rgba(2, 61, 26, 0.18);
+  }
+  .hero-primary-cta:active {
+    background: var(--gradient-btn-emerald-active);
+  }
+}
+
+/* -------------------------------------------------------------
+   3 Layered Asymmetrical Emerald Morphing & Rotating Shapes
+   ------------------------------------------------------------- */
+@keyframes rotateCW {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotateCCW {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes driftRotate {
+  0% { transform: rotate(-8deg) scale(0.97); }
+  50% { transform: rotate(8deg) scale(1.03); }
+  100% { transform: rotate(-8deg) scale(0.97); }
+}
+
+@keyframes morphOne {
+  0% { border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%; }
+  33% { border-radius: 46% 54% 56% 44% / 48% 56% 44% 52%; }
+  66% { border-radius: 56% 44% 46% 54% / 44% 50% 50% 56%; }
+  100% { border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%; }
+}
+
+@keyframes morphTwo {
+  0% { border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%; }
+  33% { border-radius: 56% 44% 42% 58% / 58% 42% 56% 44%; }
+  66% { border-radius: 42% 58% 54% 46% / 48% 54% 46% 52%; }
+  100% { border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%; }
+}
+
+@keyframes morphThree {
+  0% { border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%; }
+  50% { border-radius: 44% 56% 54% 46% / 48% 56% 44% 52%; }
+  100% { border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%; }
+}
+
+/* Shape 1: Deep Botanical Foundation (140° gradient, clockwise rotation) */
+.emerald-shape-primary {
+  background: linear-gradient(140deg, #138541 0%, #0A6E35 48%, #023D1A 100%);
+  border-radius: 54% 46% 42% 58% / 58% 44% 56% 42%;
+  box-shadow: 0 24px 60px -15px rgba(2, 61, 26, 0.32);
+  transform-origin: center center;
+  -webkit-transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, border-radius;
+  animation: rotateCW 26s linear infinite, morphOne 14s ease-in-out infinite alternate;
+  -webkit-animation: rotateCW 26s linear infinite, morphOne 14s ease-in-out infinite alternate;
+}
+
+/* Shape 2: Luminous Jade Mid-Layer (230° gradient, counter-clockwise rotation) */
+.emerald-shape-secondary {
+  background: linear-gradient(230deg, rgba(31, 167, 86, 0.9) 0%, rgba(14, 119, 60, 0.85) 50%, rgba(3, 73, 33, 0.8) 100%);
+  border-radius: 48% 52% 58% 42% / 44% 58% 42% 56%;
+  opacity: 0.85;
+  transform-origin: center center;
+  -webkit-transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, border-radius;
+  animation: rotateCCW 22s linear infinite, morphTwo 16s ease-in-out infinite alternate;
+  -webkit-animation: rotateCCW 22s linear infinite, morphTwo 16s ease-in-out infinite alternate;
+}
+
+/* Shape 3: Ambient Diffused Highlight (320° gradient, drifting rotation + blur) */
+.emerald-shape-tertiary {
+  background: linear-gradient(320deg, rgba(41, 196, 101, 0.65) 0%, rgba(22, 133, 65, 0.45) 50%, rgba(2, 61, 26, 0.2) 100%);
+  border-radius: 60% 40% 48% 52% / 52% 48% 52% 48%;
+  filter: blur(18px);
+  -webkit-filter: blur(18px);
+  opacity: 0.8;
+  transform-origin: center center;
+  -webkit-transform-origin: center center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, border-radius;
+  animation: driftRotate 18s ease-in-out infinite alternate, morphThree 12s ease-in-out infinite alternate;
+  -webkit-animation: driftRotate 18s ease-in-out infinite alternate, morphThree 12s ease-in-out infinite alternate;
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .emerald-shape-primary,
+  .emerald-shape-secondary,
+  .emerald-shape-tertiary {
+    animation: none !important;
+  }
+}
+
+/* -------------------------------------------------------------
+   Skills Ticker Infinite Smooth Motion
+   ------------------------------------------------------------- */
+@keyframes tickerSlideLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes tickerSlideRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-ticker-left {
+  animation: tickerSlideLeft 65s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-right {
+  animation: tickerSlideRight 65s linear infinite;
+  will-change: transform;
+}
+
+.ticker-track:hover .animate-ticker-left,
+.ticker-track:hover .animate-ticker-right {
+  animation-play-state: paused;
+}
+
+/* -------------------------------------------------------------
+   Natural Emerald Ambient Light Animations (Footer)
+   ------------------------------------------------------------- */
+@keyframes naturalLightBreathe {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(3%, -2.5%, 0) scale(1.18);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(-2.5%, 2%, 0) scale(0.96);
+    opacity: 0.7;
+  }
+}
+
+@keyframes naturalLightDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(-4%, 3.5%, 0) scale(1.12);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(2.5%, -3%, 0) scale(1.04);
+    opacity: 0.6;
+  }
+}
+
+@keyframes naturalRayShimmer {
+  0% {
+    opacity: 0.4;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: rotate(2.5deg) scale(1.06);
+  }
+  100% {
+    opacity: 0.45;
+    transform: rotate(-1.5deg) scale(0.98);
+  }
+}
+
+.animate-natural-light-primary {
+  animation: naturalLightBreathe 14s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.animate-natural-light-secondary {
+  animation: naturalLightDrift 19s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.animate-natural-light-tertiary {
+  animation: naturalRayShimmer 24s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .split-line-child {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
