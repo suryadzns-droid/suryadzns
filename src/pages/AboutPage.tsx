@@ -382,23 +382,24 @@ export const AboutPage: React.FC = () => {
               const fB = milestoneFractions[i + 1] || 1
 
               // Milestone snapping:
-              // When near milestone i (p <= 0.20): snap progress firmly to milestone i
-              // When near milestone i+1 (p >= 0.80): snap progress firmly to next milestone i+1
-              // In between: smooth travel along the curved SVG path
-              if (p <= 0.20) {
+              // Whenever the progress bar gets near a milestone, automatically snap into it!
+              // - Near milestone i (p <= 0.15): firmly snapped to milestone i
+              // - Near milestone i+1 (p >= 0.55): automatically snaps into next milestone i+1!
+              // - In between: smooth travel along the curved SVG path
+              if (p <= 0.15) {
                 effectiveProgress = fA
                 // Keep glowing emphasis on milestone i
                 activeMilestoneIndex = i
-              } else if (p >= 0.80) {
+              } else if (p >= 0.55) {
                 effectiveProgress = fB
-                // Reached next milestone! Turn off previous and turn on milestone i+1
+                // Snapped into milestone i+1! Previous card turns off, new milestone turns on!
                 activeMilestoneIndex = i + 1
               } else {
                 // Smooth transition between milestones
-                const t = (p - 0.20) / (0.80 - 0.20) // Normalized 0 to 1
+                const t = (p - 0.15) / (0.55 - 0.15) // Normalized 0 to 1
                 const easedT = t * t * (3 - 2 * t) // Smoothstep acceleration/deceleration
                 effectiveProgress = fA + easedT * (fB - fA)
-                // "until then the old one should have glowing card emphasis"
+                // Until next milestone is reached, old milestone holds glowing card emphasis
                 activeMilestoneIndex = i
               }
               break
