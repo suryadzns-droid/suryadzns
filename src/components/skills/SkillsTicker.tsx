@@ -107,12 +107,12 @@ const SkillCard: React.FC<{ skill: SkillItem; isTopRow?: boolean }> = ({ skill, 
     <div
       className={`inline-flex items-center justify-center gap-3.5 sm:gap-4 md:gap-4.5 bg-[#2B2C30] hover:bg-[#34353A] border-r border-b ${
         isTopRow ? 'border-t' : ''
-      } border-[#3E4046] h-[78px] sm:h-[86px] md:h-[94px] min-w-[200px] sm:min-w-[240px] md:min-w-[270px] px-6 sm:px-8 md:px-9 rounded-none shrink-0 select-none transition-colors duration-150 cursor-default group`}
+      } border-[#3E4046] h-[102px] sm:h-[112px] md:h-[122px] min-w-[210px] sm:min-w-[250px] md:min-w-[280px] px-6 sm:px-8 md:px-9 rounded-none shrink-0 select-none transition-colors duration-150 cursor-default group`}
     >
       <div className="flex items-center justify-center text-[#9EA1A8] group-hover:text-[#E2E4E9] transition-colors duration-150 group-hover:scale-105">
         {skill.icon}
       </div>
-      <span className="font-ui text-[16px] sm:text-[17.5px] md:text-[19px] font-normal tracking-[-0.015em] text-[#A6ABB4] group-hover:text-white transition-colors duration-150 whitespace-nowrap">
+      <span className="font-ui text-[16.5px] sm:text-[18px] md:text-[19.5px] font-normal tracking-[-0.015em] text-[#A6ABB4] group-hover:text-white transition-colors duration-150 whitespace-nowrap">
         {skill.name}
       </span>
     </div>

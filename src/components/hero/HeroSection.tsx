@@ -213,15 +213,15 @@ export const HeroSection: React.FC = () => {
               ref={labelRef}
               className="font-ui font-normal text-[14px] md:text-[15px] tracking-[-0.01em] text-[#444444] mb-5 md:mb-7 select-none"
             >
-              Graphic, Product &amp; Brand Designer
+              Graphic | Product | Brand Designer
             </p>
 
-            {/* Main Headline (DM Sans Light 300, strictly 2 lines on mobile) */}
+            {/* Main Headline (DM Sans Light 300, strictly 2 lines on mobile, tight line-height with descender protection) */}
             <div className="w-full max-w-[960px] mb-6 md:mb-8">
               <h1
                 ref={headlineRef}
                 aria-label="Clear thinking. Distinctive design."
-                className="font-heading font-light tracking-[-0.035em] text-[34px] min-[360px]:text-[38px] min-[390px]:text-[42px] min-[440px]:text-[48px] sm:text-[60px] md:text-[76px] lg:text-[94px] xl:text-[106px] 2xl:text-[114px] leading-[0.98] md:leading-[0.94]"
+                className="font-heading font-light tracking-[-0.035em] text-[34px] min-[360px]:text-[38px] min-[390px]:text-[42px] min-[440px]:text-[48px] sm:text-[60px] md:text-[76px] lg:text-[94px] xl:text-[106px] 2xl:text-[114px] leading-[0.96] md:leading-[0.93] lg:leading-[0.91]"
               >
                 <span className="text-[#111111] block max-md:whitespace-nowrap">
                   Clear thinking.
@@ -247,11 +247,11 @@ export const HeroSection: React.FC = () => {
               <Link
                 to="/projects"
                 id="hero-cta-button"
-                className="hero-primary-cta group relative inline-flex items-center justify-center font-ui text-[15px] md:text-[16px] font-normal tracking-[-0.01em] text-white h-[50px] md:h-[52px] px-7 rounded-[4px] border border-white/10 shadow-[0_1px_2px_rgba(2,61,26,0.1)] outline-none select-none transition-all duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0A6E35]"
+                className="hero-primary-cta group relative inline-flex items-center justify-center font-ui text-[15px] md:text-[16px] font-medium tracking-[-0.01em] text-white h-[50px] md:h-[52px] px-8 rounded-full outline-none select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#108A42] cursor-pointer"
               >
                 <span>Explore my work</span>
                 <ArrowRight
-                  className="w-4 h-4 ml-2.5 stroke-[1.7] transition-transform duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[3px]"
+                  className="w-4 h-4 ml-2.5 stroke-[2] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </Link>

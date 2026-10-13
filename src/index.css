@@ -33,10 +33,10 @@
   --green-muted: #BBDBC5;
   --green-border: rgba(10, 110, 53, 0.16);
   
-  /* Primary Button Gradient Tokens (Luminous Tree Canopy to Deep Shadow Trunk) */
-  --gradient-btn-emerald: linear-gradient(135deg, #168541 0%, #0A6E35 52%, #023D1A 100%);
-  --gradient-btn-emerald-hover: linear-gradient(135deg, #117537 0%, #075F2C 52%, #013014 100%);
-  --gradient-btn-emerald-active: linear-gradient(135deg, #0d612d 0%, #044E24 52%, #00240E 100%);
+  /* Primary Button Gradient Tokens (Luminous Emerald Light Spectrum) */
+  --gradient-btn-emerald: linear-gradient(180deg, #1EA955 0%, #118D44 50%, #0A7337 100%);
+  --gradient-btn-emerald-hover: linear-gradient(180deg, #24BF61 0%, #159C4C 50%, #0C7F3C 100%);
+  --gradient-btn-emerald-active: linear-gradient(180deg, #137E3D 0%, #0C6F34 50%, #085D2B 100%);
 
   /* Typography */
   --font-heading: "DM Sans", sans-serif;
@@ -117,6 +117,7 @@ p, .font-body-desc {
 }
 
 /* Primary Emerald Gradient Button System */
+/* Primary Emerald Gradient Button System (Luminous Emerald Light Bevel & Glow) */
 .btn-emerald-primary {
   display: inline-flex;
   align-items: center;
@@ -124,18 +125,21 @@ p, .font-body-desc {
   background: var(--gradient-btn-emerald);
   color: #FFFFFF;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.9375rem;
   line-height: 1;
-  padding: 0.875rem 1.625rem;
-  border-radius: var(--radius-subtle);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 1px 2px rgba(0, 77, 59, 0.08);
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1.5px 2px 0 rgba(0, 42, 16, 0.3),
+    0 1px 3px 0 rgba(0, 0, 0, 0.06),
+    0 4px 14px -1px rgba(16, 141, 68, 0.36),
+    0 12px 28px -4px rgba(10, 115, 55, 0.22);
   cursor: pointer;
   text-decoration: none;
-  transition: background 260ms var(--ease-natural),
-              box-shadow 260ms var(--ease-natural),
-              filter 260ms var(--ease-natural);
+  transition: all 260ms var(--ease-natural);
   position: relative;
   outline: none;
 }
@@ -143,14 +147,24 @@ p, .font-body-desc {
 @media (min-width: 768px) {
   .btn-emerald-primary:hover {
     background: var(--gradient-btn-emerald-hover);
-    box-shadow: 0 2px 6px rgba(0, 77, 59, 0.16);
+    box-shadow:
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1.5px 2px 0 rgba(0, 42, 16, 0.25),
+      0 2px 4px 0 rgba(0, 0, 0, 0.08),
+      0 8px 24px -1px rgba(22, 163, 74, 0.46),
+      0 16px 36px -4px rgba(10, 115, 55, 0.28);
+    transform: translateY(-1.5px);
   }
   
   .btn-emerald-primary:active {
     background: var(--gradient-btn-emerald-active);
+    transform: translateY(0.5px);
+    box-shadow:
+      inset 0 1.5px 3px 0 rgba(0, 35, 12, 0.4),
+      0 2px 8px rgba(16, 138, 66, 0.3);
   }
   
-  /* Arrow translation on desktop hover: small controlled 4-5px shift */
+  /* Arrow translation on desktop hover */
   .btn-emerald-primary:hover .btn-arrow-icon {
     transform: translateX(4px);
   }
@@ -213,13 +227,13 @@ p, .font-body-desc {
   transform: translateY(0);
 }
 
-/* Dedicated Hero Section Line Mask & Descender Protection */
+/* Dedicated Hero Section Line Mask & Descender Protection (Ensures 'g', 'y', 'p' are never cropped) */
 .hero-line-mask {
   overflow: hidden;
   display: block;
   line-height: inherit;
-  padding-bottom: 0.05em;
-  margin-bottom: -0.05em;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
 }
 
 .hero-split-line {
@@ -230,17 +244,31 @@ p, .font-body-desc {
 /* Primary Hero CTA Button */
 .hero-primary-cta {
   background: var(--gradient-btn-emerald);
-  transition: background 220ms var(--ease-natural),
-              box-shadow 220ms var(--ease-natural);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1.5px 2px 0 rgba(0, 42, 16, 0.3),
+    0 1px 3px 0 rgba(0, 0, 0, 0.06),
+    0 4px 14px -1px rgba(16, 141, 68, 0.36),
+    0 12px 28px -4px rgba(10, 115, 55, 0.22);
+  transition: all 260ms var(--ease-natural);
 }
 
 @media (min-width: 768px) {
   .hero-primary-cta:hover {
     background: var(--gradient-btn-emerald-hover);
-    box-shadow: 0 2px 8px rgba(2, 61, 26, 0.18);
+    box-shadow:
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.65),
+      inset 0 -1.5px 2px 0 rgba(0, 42, 16, 0.25),
+      0 2px 4px 0 rgba(0, 0, 0, 0.08),
+      0 8px 24px -1px rgba(22, 163, 74, 0.46),
+      0 16px 36px -4px rgba(10, 115, 55, 0.28);
+    transform: translateY(-1.5px);
   }
   .hero-primary-cta:active {
     background: var(--gradient-btn-emerald-active);
+    transform: translateY(0.5px);
   }
 }
 
