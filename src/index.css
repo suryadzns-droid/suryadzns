@@ -453,6 +453,11 @@ p, .font-body-desc {
   will-change: transform;
 }
 
+.animate-ticker-brands {
+  animation: tickerSlideLeft 22s linear infinite;
+  will-change: transform;
+}
+
 .ticker-track:hover .animate-ticker-left,
 .ticker-track:hover .animate-ticker-right {
   animation-play-state: paused;

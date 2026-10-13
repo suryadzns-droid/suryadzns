@@ -46,8 +46,8 @@ export const WorkedWithBrands: React.FC = () => {
           </h2>
         </div>
 
-        {/* 3-Column Logo Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-[1100px] mx-auto items-stretch">
+        {/* Desktop/Tablet: 3-Column Logo Grid (sm:grid) */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-[1100px] mx-auto items-stretch">
           {BRANDS.map((brand) => (
             <div
               key={brand.name}
@@ -56,12 +56,38 @@ export const WorkedWithBrands: React.FC = () => {
               <img
                 src={brand.logo}
                 alt={`${brand.name} logo`}
-                className={`w-auto max-w-[85%] ${brand.maxHeightClass} object-contain grayscale hover:grayscale-0 opacity-75 hover:opacity-100 transition-all duration-300 group-hover:scale-105`}
+                className={`w-auto max-w-[85%] ${brand.maxHeightClass} object-contain transition-transform duration-300 group-hover:scale-105`}
                 loading="lazy"
                 decoding="async"
               />
             </div>
           ))}
+        </div>
+
+        {/* Mobile: Infinite Animated Logo Ticker (sm:hidden) */}
+        <div className="block sm:hidden w-full relative overflow-hidden -mx-5 px-5">
+          {/* Edge Fade Masks */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10" />
+
+          <div className="ticker-track flex w-max gap-3.5">
+            <div className="flex items-center gap-3.5 animate-ticker-brands">
+              {[...BRANDS, ...BRANDS, ...BRANDS, ...BRANDS].map((brand, idx) => (
+                <div
+                  key={`${brand.name}-mobile-${idx}`}
+                  className="bg-[#FFFFFF] border border-[#EBECEF] h-[104px] w-[200px] px-6 py-4 flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.02)] rounded-none select-none"
+                >
+                  <img
+                    src={brand.logo}
+                    alt={`${brand.name} logo`}
+                    className="w-auto max-w-[85%] max-h-[46px] object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
       </div>

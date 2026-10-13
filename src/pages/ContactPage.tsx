@@ -1,35 +1,31 @@
 import React from 'react'
-import { TextRevealHeading } from '../components/common/TextRevealHeading'
-import { TextRevealParagraph } from '../components/common/TextRevealParagraph'
-import { SectionReveal } from '../components/common/SectionReveal'
 import { EmeraldButton } from '../components/common/EmeraldButton'
 
 export const ContactPage: React.FC = () => {
   return (
-    <main className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20 min-h-[75vh] flex flex-col justify-center">
-      <div className="max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF6EE] text-[#023D1A] text-xs font-medium tracking-wide uppercase rounded-[3px] mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0A6E35]"></span>
-          Contact Route Shell
-        </div>
+    <main className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 py-28 sm:py-36 min-h-[70vh] flex flex-col justify-center items-center text-center">
+      <div className="max-w-xl flex flex-col items-center">
+        <span className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF6EE] text-[#0A6E35] text-xs font-ui font-medium tracking-wide uppercase rounded-full mb-5 select-none">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0A6E35]" />
+          Contact
+        </span>
 
-        <TextRevealHeading as="h1" immediate className="text-4xl sm:text-5xl lg:text-6xl mb-8 leading-[1.14]">
-          Initiate a conversation regarding <span className="text-[#0A6E35]">upcoming projects</span>.
-        </TextRevealHeading>
+        <h1 className="font-heading font-light text-4xl sm:text-5xl lg:text-6xl text-[#111111] tracking-[-0.03em] mb-4">
+          Under Construction
+        </h1>
 
-        <TextRevealParagraph immediate className="text-lg md:text-xl text-[#444444] mb-10">
-          Available for selected design systems, digital product UI/UX architecture, and brand identity projects.
-          Direct inquiry channels and communication interfaces will be integrated in the upcoming section design phase.
-        </TextRevealParagraph>
+        <p className="font-body font-light text-base sm:text-lg text-[#666666] leading-relaxed mb-8 max-w-md">
+          This page is currently under construction. In the meantime, feel free to reach out directly via email.
+        </p>
 
-        <SectionReveal className="flex flex-wrap items-center gap-4 pt-4">
-          <EmeraldButton href="mailto:hello@example.com" showArrow>
-            Send Direct Inquiry
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <EmeraldButton href="mailto:suryadzns@gmail.com" variant="primary" showArrow>
+            Email Surya
           </EmeraldButton>
           <EmeraldButton to="/" variant="secondary">
-            Return to Design System
+            Back to Home
           </EmeraldButton>
-        </SectionReveal>
+        </div>
       </div>
     </main>
   )

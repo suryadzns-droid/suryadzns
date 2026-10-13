@@ -350,67 +350,67 @@ export const AboutPage: React.FC = () => {
       const revealedStates = new Array(rows.length).fill(false)
       revealedStates[0] = true
 
-      // Viewport Center Driven Progress:
-      // Each milestone reaches progress EXACTLY when that milestone sits in the center of the screen
+      // Viewport Center Driven Progress with True Magnetic Latches & Zero-Flicker Hysteresis:
+      // Inside each milestone's latch zone, progress is firmly held and magnetized.
+      // Once the user scrolls past the latch distance, progress starts moving smoothly towards the next milestone.
       const updateCenterProgress = () => {
         const curScroll = window.scrollY
+        const N = milestoneTargetScrolls.length
+        if (N === 0) return
 
-        let rawProgress = 0
-        const firstTarget = milestoneTargetScrolls[0] || 0
-        const lastTarget =
-          milestoneTargetScrolls[milestoneTargetScrolls.length - 1] || 1
+        const S0 = milestoneTargetScrolls[0] || 0
+        const SLast = milestoneTargetScrolls[N - 1] || 1
 
-        if (curScroll <= firstTarget) {
-          rawProgress = 0
-        } else if (curScroll >= lastTarget) {
-          rawProgress = 1
+        let effectiveProgress = 0
+        let activeMilestoneIndex = -1
+
+        if (curScroll <= S0) {
+          effectiveProgress = 0
+          activeMilestoneIndex = 0
+        } else if (curScroll >= SLast) {
+          effectiveProgress = 1
+          activeMilestoneIndex = N - 1
         } else {
-          // Map scroll between milestone target scroll offsets
-          for (let i = 0; i < milestoneTargetScrolls.length - 1; i++) {
+          for (let i = 0; i < N - 1; i++) {
             const sA = milestoneTargetScrolls[i]
             const sB = milestoneTargetScrolls[i + 1]
             if (curScroll >= sA && curScroll <= sB) {
-              const ratio = sB > sA ? (curScroll - sA) / (sB - sA) : 0
-              const fA = milestoneFractions[i]
-              const fB = milestoneFractions[i + 1]
-              rawProgress = fA + ratio * (fB - fA)
+              const segDelta = Math.max(60, sB - sA)
+              // True magnetic latch: hold progress firmly for ~35% of the distance (80px - 140px)
+              const latch = Math.min(140, Math.max(80, segDelta * 0.35))
+              const travelDistance = Math.max(20, segDelta - latch)
+
+              if (curScroll <= sA + latch) {
+                // MAGNETICALLY LOCKED onto Milestone i!
+                effectiveProgress = milestoneFractions[i]
+                activeMilestoneIndex = i
+              } else {
+                // Scrolled past latch: now start moving towards Milestone i+1!
+                const t = Math.min(1, Math.max(0, (curScroll - (sA + latch)) / travelDistance))
+                // Smooth acceleration breakout curve (smoothstep)
+                const easedT = t * t * (3 - 2 * t)
+                const fA = milestoneFractions[i]
+                const fB = milestoneFractions[i + 1]
+                effectiveProgress = fA + easedT * (fB - fA)
+
+                // When nearing milestone i+1 (t >= 0.88), latch onto next milestone
+                if (t >= 0.88) {
+                  activeMilestoneIndex = i + 1
+                } else {
+                  activeMilestoneIndex = -1
+                }
+              }
               break
             }
           }
         }
 
-        // Apply Magnetic Detent near each milestone center
-        const magnetThreshold = 0.045
-        let closestIndex = 0
-        let bestDist = Infinity
+        const clampedProgress = Math.max(0, Math.min(1, effectiveProgress))
 
-        for (let i = 0; i < milestoneFractions.length; i++) {
-          const dist = Math.abs(rawProgress - milestoneFractions[i])
-          if (dist < bestDist) {
-            bestDist = dist
-            closestIndex = i
-          }
-        }
+        // Update SVG stroke-dashoffset: firmly holds during latch, moves smoothly when released
+        progressPath.style.strokeDashoffset = `${(1 - clampedProgress) * totalLength}`
 
-        const targetFrac = milestoneFractions[closestIndex]
-        const delta = rawProgress - targetFrac
-
-        let snappedProgress = rawProgress
-        let isMagnetized = false
-
-        if (Math.abs(delta) < magnetThreshold) {
-          const t = delta / magnetThreshold
-          const pull = Math.pow(t, 3) // Cubic magnetic latch
-          snappedProgress = targetFrac + pull * magnetThreshold
-          isMagnetized = Math.abs(delta) < magnetThreshold * 0.75
-        }
-
-        const clampedSnapped = Math.max(0, Math.min(1, snappedProgress))
-
-        // Update SVG stroke-dashoffset: smoothly reaches the center
-        progressPath.style.strokeDashoffset = `${(1 - clampedSnapped) * totalLength}`
-
-        // Synchronize each milestone card's reveal and active gradient state
+        // Synchronize reveal and active gradient states with robust hysteresis
         rows.forEach((row, i) => {
           const cards = row.querySelectorAll<HTMLElement>('.timeline-card')
           const connectors = row.querySelectorAll<HTMLElement>('.timeline-connector')
@@ -418,68 +418,91 @@ export const AboutPage: React.FC = () => {
 
           if (!cards.length) return
 
+          const sTarget = milestoneTargetScrolls[i] || 0
           const nodeFrac = milestoneFractions[i] || 0
-          // Card is revealed ONLY when progress bar reaches it in the center!
-          const shouldBeRevealed = i === 0 || clampedSnapped >= nodeFrac - 0.015
 
-          if (shouldBeRevealed) {
-            if (!revealedStates[i]) {
-              revealedStates[i] = true
-              // Bouncy card entrance animation right in the center!
-              cards.forEach((card) => {
-                gsap.to(card, {
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  duration: 0.7,
-                  ease: 'back.out(1.75)',
-                  overwrite: 'auto',
-                })
-              })
-            } else {
-              cards.forEach((card) => gsap.set(card, { opacity: 1, pointerEvents: 'auto' }))
-            }
+          // Hysteretic reveal state:
+          // Reveal when reaching near target (scroll >= sTarget - 30px or progress >= nodeFrac - 0.005)
+          // ONLY hide if scrolling significantly above (scroll < sTarget - 90px and progress < nodeFrac - 0.02)
+          if (i === 0) {
+            revealedStates[0] = true
           } else {
-            if (revealedStates[i]) {
-              revealedStates[i] = false
-              // Smoothly hides when user scrolls back above the milestone
-              cards.forEach((card) => {
-                gsap.to(card, {
-                  opacity: 0,
-                  scale: 0.82,
-                  y: 28,
-                  duration: 0.28,
-                  ease: 'power2.in',
-                  overwrite: 'auto',
+            if (!revealedStates[i]) {
+              if (curScroll >= sTarget - 30 || clampedProgress >= nodeFrac - 0.005) {
+                revealedStates[i] = true
+                cards.forEach((card) => {
+                  gsap.to(card, {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    pointerEvents: 'auto',
+                    duration: 0.65,
+                    ease: 'back.out(1.75)',
+                    overwrite: 'auto',
+                  })
                 })
-              })
+              }
+            } else {
+              if (curScroll < sTarget - 90 && clampedProgress < nodeFrac - 0.02) {
+                revealedStates[i] = false
+                cards.forEach((card) => {
+                  gsap.to(card, {
+                    opacity: 0,
+                    scale: 0.82,
+                    y: 28,
+                    pointerEvents: 'none',
+                    duration: 0.28,
+                    ease: 'power2.in',
+                    overwrite: 'auto',
+                  })
+                })
+              }
             }
           }
 
-          // Active milestone in center highlights in EMERALD GRADIENT!
-          const isCurrentlyActive =
-            shouldBeRevealed &&
-            closestIndex === i &&
-            (isMagnetized || (i === 0 && curScroll <= (milestoneTargetScrolls[0] || 0) + 50))
+          // Active milestone highlighting (emerald gradient glow)
+          const isCurrentlyActive = activeMilestoneIndex === i
 
           if (isCurrentlyActive) {
             cards.forEach((card) => {
-              card.classList.add('milestone-card-active-gradient')
-              card.classList.remove('milestone-card-revealed')
+              if (!card.classList.contains('milestone-card-active-gradient')) {
+                card.classList.add('milestone-card-active-gradient')
+                card.classList.remove('milestone-card-revealed')
+              }
             })
-            connectors.forEach((c) => c.classList.add('connector-magnetized'))
-            nodeDots.forEach((n) => n.classList.add('node-magnetized'))
+            connectors.forEach((c) => {
+              if (!c.classList.contains('connector-magnetized')) {
+                c.classList.add('connector-magnetized')
+              }
+            })
+            nodeDots.forEach((n) => {
+              if (!n.classList.contains('node-magnetized')) {
+                n.classList.add('node-magnetized')
+              }
+            })
           } else {
             cards.forEach((card) => {
-              card.classList.remove('milestone-card-active-gradient')
-              if (shouldBeRevealed) {
-                card.classList.add('milestone-card-revealed')
+              if (card.classList.contains('milestone-card-active-gradient')) {
+                card.classList.remove('milestone-card-active-gradient')
+              }
+              if (revealedStates[i]) {
+                if (!card.classList.contains('milestone-card-revealed')) {
+                  card.classList.add('milestone-card-revealed')
+                }
               } else {
                 card.classList.remove('milestone-card-revealed')
               }
             })
-            connectors.forEach((c) => c.classList.remove('connector-magnetized'))
-            nodeDots.forEach((n) => n.classList.remove('node-magnetized'))
+            connectors.forEach((c) => {
+              if (c.classList.contains('connector-magnetized')) {
+                c.classList.remove('connector-magnetized')
+              }
+            })
+            nodeDots.forEach((n) => {
+              if (n.classList.contains('node-magnetized')) {
+                n.classList.remove('node-magnetized')
+              }
+            })
           }
         })
       }
@@ -590,14 +613,19 @@ export const AboutPage: React.FC = () => {
             </p>
 
             {/* Action Buttons: Get in Touch & Download Résumé */}
-            <div className="flex flex-wrap items-center gap-3 w-full mb-6">
-              <EmeraldButton to="/contact" variant="primary" showArrow className="h-[46px] px-6 text-sm">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full mb-6">
+              <EmeraldButton
+                to="/contact"
+                variant="primary"
+                showArrow
+                className="h-[44px] sm:h-[46px] px-2 sm:px-5 text-[13px] sm:text-sm w-full whitespace-nowrap justify-center"
+              >
                 Get in touch
               </EmeraldButton>
               <EmeraldButton
                 href="/resume.pdf"
                 variant="secondary"
-                className="h-[46px] px-6 text-sm"
+                className="h-[44px] sm:h-[46px] px-2 sm:px-5 text-[13px] sm:text-sm w-full whitespace-nowrap justify-center"
               >
                 Download résumé
               </EmeraldButton>

@@ -53,18 +53,16 @@ export const Navbar: React.FC = () => {
       <div className="fixed top-6 sm:top-8 inset-x-0 z-50 pointer-events-none flex justify-center px-6 sm:px-10">
         <header className="pointer-events-auto w-full max-w-[94%] md:max-w-[80%] lg:w-[70%] lg:max-w-[980px] h-[58px] sm:h-[62px] px-6 sm:px-8 rounded-full bg-[#FFFFFF]/75 backdrop-blur-2xl border border-black/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] flex items-center justify-between transition-all">
           
-          {/* Left Brand: @surya linking to Instagram */}
-          <a
-            href="https://www.instagram.com/imsuryahhh/"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Left Brand: @surya linking to Homepage */}
+          <NavLink
+            to="/"
             className="group flex items-center select-none py-1"
-            aria-label="Surya on Instagram"
+            aria-label="Surya Home"
           >
             <span className="font-ui font-medium text-[15.5px] sm:text-[16.5px] tracking-[-0.02em] text-[#111111] group-hover:text-[#0A6E35] transition-colors duration-200">
               @surya
             </span>
-          </a>
+          </NavLink>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center space-x-8">
