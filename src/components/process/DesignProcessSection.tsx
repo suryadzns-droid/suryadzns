@@ -54,58 +54,58 @@ export const DesignProcessSection: React.FC = () => {
       const mm = gsap.matchMedia()
 
       // ==========================================
-      // DESKTOP: Pinned Staggered Scroll Choreography (>= 1024px)
-      // Visibly pins in viewport so entrance & exit happen directly in front of the visitor
+      // DESKTOP: Robust Staggered Parallax Choreography (>= 1024px)
+      // Unpinned, 100% stable in Safari/WebKit and all production environments.
+      // Triggered directly on the cards grid as it traverses the viewport.
       // ==========================================
       mm.add(
         '(min-width: 1024px) and (prefers-reduced-motion: no-preference)',
         () => {
+          const grid = cardsGridRef.current
           const cards = gsap.utils.toArray<HTMLElement>('.process-card-item')
-          if (cards.length !== 4) return
+          if (!grid || cards.length !== 4) return
 
-          // Prominent entrance offsets: descending staircase from left to right
-          const enterY = [220, 380, 540, 700]
+          // Prominent entrance offsets: descending diagonal staircase
+          const enterY = [40, 160, 280, 400]
           // Prominent exit offsets: ascending exit (card 0 leaves first/highest)
-          const exitY = [-550, -400, -250, -100]
+          const exitY = [-400, -280, -160, -40]
 
-          // Master Scroll Scrub Timeline pinned directly to the section
+          // Master Scroll Scrub Timeline tied directly to the cards grid entering and traversing the viewport
           const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 70px',
-              end: '+=1500',
-              pin: true,
-              scrub: 0.7,
-              anticipatePin: 1,
+              trigger: grid,
+              start: 'top 92%',
+              end: 'bottom 8%',
+              scrub: 0.8,
               invalidateOnRefresh: true,
             },
             defaults: { ease: 'none' },
           })
 
-          // Phase 1: Prominent Staggered Entrance (progress 0.0 -> 0.32)
-          // Cards rise from staircase offsets up to level baseline y = 0
+          // Phase 1: Staggered Diagonal Entrance (progress 0.0 -> 0.35)
+          // Cards rise from their staircase offsets to converge at level baseline y = 0
           cards.forEach((card, i) => {
             tl.fromTo(
               card,
-              { y: enterY[i], opacity: 0.4 },
-              { y: 0, opacity: 1, duration: 0.32 },
+              { y: enterY[i] },
+              { y: 0, duration: 0.35 },
               0
             )
           })
 
-          // Phase 2: Aligned Reading Moment (progress 0.32 -> 0.68)
-          // All 4 cards hold at level baseline y = 0 with full opacity for easy reading
+          // Phase 2: Aligned Reading Interval (progress 0.35 -> 0.65)
+          // All 4 cards hold at level baseline y = 0 as they pass through the reading zone
           cards.forEach((card) => {
-            tl.to(card, { y: 0, opacity: 1, duration: 0.36 }, 0.32)
+            tl.to(card, { y: 0, duration: 0.3 }, 0.35)
           })
 
-          // Phase 3: Prominent Staggered Exit (progress 0.68 -> 1.0)
-          // Card 0 shoots upward first, followed sequentially by cards 1, 2, and 3
+          // Phase 3: Staggered Upward Exit (progress 0.65 -> 1.0)
+          // Card 0 lifts and exits first, followed in order by 1, 2, and 3
           cards.forEach((card, i) => {
             tl.to(
               card,
-              { y: exitY[i], opacity: i < 2 ? 0.2 : 0.6, duration: 0.32 },
-              0.68
+              { y: exitY[i], duration: 0.35 },
+              0.65
             )
           })
         }
@@ -130,7 +130,7 @@ export const DesignProcessSection: React.FC = () => {
       ref={containerRef}
       id="design-process"
       aria-label="Design Process"
-      className="w-full bg-[#FFFFFF] border-t border-[#F0F1F3] relative pt-12 sm:pt-16 lg:pt-14 pb-14 sm:pb-20 lg:pb-16"
+      className="w-full bg-[#FFFFFF] border-t border-[#F0F1F3] relative pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-32 lg:pb-36"
     >
       {/* ========================================== */}
       {/* SECTION HEADING */}
