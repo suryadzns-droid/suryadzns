@@ -350,9 +350,9 @@ export const AboutPage: React.FC = () => {
       const revealedStates = new Array(rows.length).fill(false)
       revealedStates[0] = true
 
-      // Viewport Center Driven Progress with True Magnetic Latches & Zero-Flicker Hysteresis:
-      // Inside each milestone's latch zone, progress is firmly held and magnetized.
-      // Once the user scrolls past the latch distance, progress starts moving smoothly towards the next milestone.
+      // Viewport Center Driven Progress with Milestone Snapping & Continuous Card Emphasis:
+      // Snaps to milestone when close to it on the path.
+      // The current milestone holds its glowing emphasis until the next milestone is reached.
       const updateCenterProgress = () => {
         const curScroll = window.scrollY
         const N = milestoneTargetScrolls.length
@@ -362,43 +362,44 @@ export const AboutPage: React.FC = () => {
         const SLast = milestoneTargetScrolls[N - 1] || 1
 
         let effectiveProgress = 0
-        let activeMilestoneIndex = -1
+        let activeMilestoneIndex = 0
 
         if (curScroll <= S0) {
-          effectiveProgress = 0
+          effectiveProgress = milestoneFractions[0] || 0
           activeMilestoneIndex = 0
         } else if (curScroll >= SLast) {
-          effectiveProgress = 1
+          effectiveProgress = milestoneFractions[N - 1] || 1
           activeMilestoneIndex = N - 1
         } else {
           for (let i = 0; i < N - 1; i++) {
             const sA = milestoneTargetScrolls[i]
             const sB = milestoneTargetScrolls[i + 1]
             if (curScroll >= sA && curScroll <= sB) {
-              const segDelta = Math.max(60, sB - sA)
-              // True magnetic latch: hold progress firmly for ~35% of the distance (80px - 140px)
-              const latch = Math.min(140, Math.max(80, segDelta * 0.35))
-              const travelDistance = Math.max(20, segDelta - latch)
+              const segDelta = Math.max(1, sB - sA)
+              const p = (curScroll - sA) / segDelta // 0.0 to 1.0 progress through this segment
 
-              if (curScroll <= sA + latch) {
-                // MAGNETICALLY LOCKED onto Milestone i!
-                effectiveProgress = milestoneFractions[i]
+              const fA = milestoneFractions[i] || 0
+              const fB = milestoneFractions[i + 1] || 1
+
+              // Milestone snapping:
+              // When near milestone i (p <= 0.20): snap progress firmly to milestone i
+              // When near milestone i+1 (p >= 0.80): snap progress firmly to next milestone i+1
+              // In between: smooth travel along the curved SVG path
+              if (p <= 0.20) {
+                effectiveProgress = fA
+                // Keep glowing emphasis on milestone i
                 activeMilestoneIndex = i
+              } else if (p >= 0.80) {
+                effectiveProgress = fB
+                // Reached next milestone! Turn off previous and turn on milestone i+1
+                activeMilestoneIndex = i + 1
               } else {
-                // Scrolled past latch: now start moving towards Milestone i+1!
-                const t = Math.min(1, Math.max(0, (curScroll - (sA + latch)) / travelDistance))
-                // Smooth acceleration breakout curve (smoothstep)
-                const easedT = t * t * (3 - 2 * t)
-                const fA = milestoneFractions[i]
-                const fB = milestoneFractions[i + 1]
+                // Smooth transition between milestones
+                const t = (p - 0.20) / (0.80 - 0.20) // Normalized 0 to 1
+                const easedT = t * t * (3 - 2 * t) // Smoothstep acceleration/deceleration
                 effectiveProgress = fA + easedT * (fB - fA)
-
-                // When nearing milestone i+1 (t >= 0.88), latch onto next milestone
-                if (t >= 0.88) {
-                  activeMilestoneIndex = i + 1
-                } else {
-                  activeMilestoneIndex = -1
-                }
+                // "until then the old one should have glowing card emphasis"
+                activeMilestoneIndex = i
               }
               break
             }
@@ -407,7 +408,7 @@ export const AboutPage: React.FC = () => {
 
         const clampedProgress = Math.max(0, Math.min(1, effectiveProgress))
 
-        // Update SVG stroke-dashoffset: firmly holds during latch, moves smoothly when released
+        // Update SVG stroke-dashoffset: snaps to node, travels smoothly between segments
         progressPath.style.strokeDashoffset = `${(1 - clampedProgress) * totalLength}`
 
         // Synchronize reveal and active gradient states with robust hysteresis

@@ -135,7 +135,7 @@ export const DesignProcessSection: React.FC = () => {
       {/* ========================================== */}
       {/* SECTION HEADING */}
       {/* ========================================== */}
-      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 pb-8 sm:pb-10 lg:pb-10 text-left">
+      <div className="w-full max-w-[1180px] mx-auto px-7 sm:px-10 md:px-12 lg:px-16 xl:px-20 pb-8 sm:pb-10 lg:pb-10 text-left">
         <div className="mb-2 sm:mb-3">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF6EE] text-[#0A6E35] text-xs font-ui font-medium tracking-wide uppercase select-none">
             <span className="w-1.5 h-1.5 rounded-full bg-[#0A6E35]" />
@@ -155,15 +155,15 @@ export const DesignProcessSection: React.FC = () => {
       {/* ========================================== */}
       <div
         ref={cardsGridRef}
-        className="w-full max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14"
+        className="w-full max-w-[1180px] mx-auto px-7 sm:px-10 md:px-12 lg:px-16 xl:px-20"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5 xl:gap-6 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4.5 lg:gap-5 xl:gap-5.5 items-stretch">
           {PROCESS_STEPS.map((step) => (
             <div
               key={step.step}
               className="process-card-item w-full will-change-transform"
             >
-              <article className="bg-[#FFFFFF] border border-[#E0EBE5] rounded-none p-4 sm:p-5 lg:p-6 xl:p-7 flex flex-col justify-start lg:justify-between h-full min-h-0 lg:min-h-[350px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:border-[#0A6E35]/40 hover:shadow-[0_8px_24px_rgba(10,110,53,0.06)] transition-all duration-300">
+              <article className="bg-[#FFFFFF] border border-[#E0EBE5] rounded-xl sm:rounded-2xl p-4.5 sm:p-5 lg:p-6 xl:p-6.5 flex flex-col justify-start lg:justify-between h-full min-h-0 lg:min-h-[350px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[#0A6E35]/40 hover:shadow-[0_8px_24px_rgba(10,110,53,0.06)] transition-all duration-300">
                 <div>
                   {/* Header: Number Pill & Phase Indicator */}
                   <div className="flex items-center justify-between mb-3 sm:mb-4 select-none">
