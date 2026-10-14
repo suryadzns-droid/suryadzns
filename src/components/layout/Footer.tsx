@@ -31,12 +31,34 @@ export const Footer: React.FC = () => {
       {/* Main Single Container */}
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-12 xl:px-14 relative z-10 flex flex-col gap-10 sm:gap-14">
         
-        {/* Quote: Center-aligned on mobile, Left-aligned on desktop */}
-        <div className="pt-2">
-          <blockquote className="font-heading font-light text-[26px] min-[420px]:text-[30px] sm:text-[42px] md:text-[50px] lg:text-[56px] leading-[1.18] tracking-[-0.03em] text-white text-center md:text-left mx-auto md:mx-0 max-w-4xl">
+        {/* Quote & Get in Touch CTA: Desktop on right side of quote, Mobile after quote */}
+        <div className="pt-2 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
+          <blockquote className="font-heading font-light text-[26px] min-[420px]:text-[30px] sm:text-[42px] md:text-[48px] lg:text-[54px] leading-[1.18] tracking-[-0.03em] text-white text-center md:text-left mx-auto md:mx-0 max-w-3xl">
             <span className="block">Design isn’t just decoration.</span>
             <span className="block text-white/90">It’s communication that works.</span>
           </blockquote>
+
+          <div className="flex justify-center md:justify-end shrink-0">
+            <a
+              href="mailto:suryadzns@gmail.com"
+              className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#0A6E35] hover:bg-[#0c7f3e] text-white font-ui font-medium text-sm sm:text-base transition-all duration-200 shadow-[0_4px_20px_rgba(10,110,53,0.35)] hover:shadow-[0_6px_24px_rgba(10,110,53,0.5)] hover:-translate-y-0.5 active:scale-95"
+            >
+              <span>Get in touch</span>
+              <svg
+                className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Horizontal Navigation & Social Links: Center-aligned on mobile */}
@@ -134,9 +156,6 @@ export const Footer: React.FC = () => {
             </Link>
             <Link to="/projects" className="hover:text-[#4ADE80] transition-colors py-1">
               Projects
-            </Link>
-            <Link to="/contact" className="hover:text-[#4ADE80] transition-colors py-1">
-              Contact
             </Link>
           </div>
 

@@ -617,7 +617,7 @@ export const AboutPage: React.FC = () => {
             {/* Action Buttons: Get in Touch & Download Résumé */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full mb-6">
               <EmeraldButton
-                to="/contact"
+                href="mailto:suryadzns@gmail.com"
                 variant="primary"
                 showArrow
                 className="h-[44px] sm:h-[46px] px-2 sm:px-5 text-[13px] sm:text-sm w-full whitespace-nowrap justify-center"

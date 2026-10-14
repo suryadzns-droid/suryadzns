@@ -34,7 +34,7 @@ export const PreFooterCta: React.FC = () => {
             {/* Action Buttons: Primary "Get in touch" + Secondary "View works" */}
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full">
               <EmeraldButton
-                to="/contact"
+                href="mailto:suryadzns@gmail.com"
                 variant="primary"
                 showArrow
                 className="h-[46px] px-6 sm:px-7 text-sm font-medium w-full sm:w-auto"
