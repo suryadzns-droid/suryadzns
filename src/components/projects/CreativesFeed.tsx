@@ -420,24 +420,58 @@ export const CreativesFeed: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8 bg-black/80 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-[100] flex flex-col justify-end sm:justify-center items-center p-0 sm:p-4 md:p-6 lg:p-8 bg-black/85 backdrop-blur-md animate-fade-in"
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-[1050px] max-h-[92vh] bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row border border-white/20 animate-scale-up"
+            className="relative w-full max-w-[1050px] h-[92vh] sm:h-auto sm:max-h-[90vh] bg-white rounded-t-2xl sm:rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row border-0 sm:border sm:border-white/20 animate-scale-up"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
+            {/* MOBILE ONLY: Top Header Bar with Profile & Close */}
+            <div className="flex lg:hidden items-center justify-between px-4 py-3 bg-white border-b border-[#F0F2F1] shrink-0 w-full z-20">
+              <div className="flex items-center gap-2.5">
+                <img
+                  src={feedData.profilePictureUrl || INITIAL_DATA.profilePictureUrl}
+                  alt="Grafino Studio"
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <div>
+                  <h4 className="font-heading font-medium text-[13.5px] text-[#111111] leading-tight">
+                    grafino_studio
+                  </h4>
+                  <p className="text-[11px] font-ui text-[#888888] leading-none">
+                    Grafino - Design Studio
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                {slides.length > 1 && (
+                  <span className="text-[11px] font-ui font-medium text-[#666666] bg-[#F4F6F5] px-2.5 py-1 rounded-full">
+                    {activeSlideIndex + 1} / {slides.length}
+                  </span>
+                )}
+                <button
+                  onClick={closeModal}
+                  aria-label="Close modal"
+                  className="w-8 h-8 rounded-full bg-[#F2F4F3] hover:bg-[#E5E8E6] text-[#222222] flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* DESKTOP ONLY: Top Right Close Button */}
             <button
               onClick={closeModal}
               aria-label="Close modal"
-              className="absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#222222] shadow-md flex items-center justify-center transition-all duration-150 cursor-pointer"
+              className="hidden lg:flex absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#222222] shadow-md items-center justify-center transition-all duration-150 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* LEFT / TOP: Media Presentation Stage */}
-            <div className="relative w-full lg:w-[60%] aspect-square lg:aspect-auto lg:min-h-[560px] bg-[#111111] flex items-center justify-center select-none overflow-hidden">
+            <div className="relative w-full lg:w-[60%] h-[40vh] sm:h-[48vh] lg:h-auto lg:min-h-[560px] bg-[#111111] flex items-center justify-center select-none shrink-0 overflow-hidden">
               {currentSlide?.mediaType === 'VIDEO' ? (
                 <video
                   key={currentSlide.id}
@@ -471,9 +505,9 @@ export const CreativesFeed: React.FC = () => {
                       )
                     }
                     aria-label="Previous slide"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
+                    className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
 
                   <button
@@ -481,9 +515,9 @@ export const CreativesFeed: React.FC = () => {
                       setActiveSlideIndex((prev) => (prev + 1) % slides.length)
                     }
                     aria-label="Next slide"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
+                    className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
 
                   {/* Slide Dots Indicator */}
@@ -506,10 +540,10 @@ export const CreativesFeed: React.FC = () => {
             </div>
 
             {/* RIGHT / BOTTOM: Post Details & Caption */}
-            <div className="w-full lg:w-[40%] p-6 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[45vh] lg:max-h-none">
+            <div className="w-full lg:w-[40%] p-4 sm:p-6 lg:p-7 flex flex-col justify-between overflow-y-auto flex-1 min-h-0 bg-white">
               <div>
-                {/* Header Profile Info */}
-                <div className="flex items-center justify-between pb-4 border-b border-[#F0F2F1] mb-5">
+                {/* DESKTOP ONLY: Header Profile Info */}
+                <div className="hidden lg:flex items-center justify-between pb-4 border-b border-[#F0F2F1] mb-5">
                   <div className="flex items-center gap-3">
                     <img
                       src={feedData.profilePictureUrl || INITIAL_DATA.profilePictureUrl}
@@ -534,15 +568,15 @@ export const CreativesFeed: React.FC = () => {
                 </div>
 
                 {/* Caption Content */}
-                <div className="font-body text-[14px] text-[#333333] leading-relaxed whitespace-pre-line mb-6">
+                <div className="font-body text-[13.5px] sm:text-[14px] text-[#333333] leading-relaxed whitespace-pre-line mb-6">
                   {selectedPost.caption}
                 </div>
               </div>
 
               {/* Bottom Footer Actions */}
-              <div className="pt-4 border-t border-[#F0F2F1] mt-auto">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-4 text-sm font-ui text-[#444444]">
+              <div className="pt-3 sm:pt-4 border-t border-[#F0F2F1] mt-auto shrink-0">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="flex items-center gap-4 text-xs sm:text-sm font-ui text-[#444444]">
                     <span className="flex items-center gap-1.5 font-medium text-[#0A6E35]">
                       <Heart className="w-4 h-4 fill-[#0A6E35]" />
                       {selectedPost.likeCount} likes
@@ -562,7 +596,7 @@ export const CreativesFeed: React.FC = () => {
                   href={selectedPost.permalink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A6E35] hover:bg-[#085529] text-white font-ui text-sm font-medium transition-colors duration-150 shadow-xs"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A6E35] hover:bg-[#085529] text-white font-ui text-xs sm:text-sm font-medium transition-colors duration-150 shadow-xs"
                 >
                   <InstagramIcon className="w-4 h-4" />
                   <span>View Post on Instagram</span>

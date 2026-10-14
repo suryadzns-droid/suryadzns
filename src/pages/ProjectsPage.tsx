@@ -37,7 +37,7 @@ export const ProjectsPage: React.FC = () => {
       <div className="max-w-3xl mb-10 sm:mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#EAF6EE] text-[#0A6E35] text-xs font-ui font-medium tracking-wide uppercase rounded-full mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-[#0A6E35]"></span>
-          {activeTab === 'ui-identity' ? 'Selected Works' : 'Instagram Feed'}
+          {activeTab === 'ui-identity' ? 'Selected Works' : 'Creatives'}
         </div>
 
         <TextRevealHeading
@@ -73,43 +73,25 @@ export const ProjectsPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setActiveTab('ui-identity')}
-          className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-ui font-medium transition-all duration-200 cursor-pointer ${
+          className={`px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-ui font-medium transition-all duration-200 cursor-pointer ${
             activeTab === 'ui-identity'
               ? 'bg-white text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-black/5'
               : 'text-[#666666] hover:text-[#111111]'
           }`}
         >
-          <span>UI &amp; Identity</span>
-          <span
-            className={`text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors ${
-              activeTab === 'ui-identity'
-                ? 'bg-[#EAF6EE] text-[#0A6E35]'
-                : 'bg-[#E5E8E6] text-[#777777]'
-            }`}
-          >
-            {PROJECTS.length}
-          </span>
+          UI &amp; Identity
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('creatives')}
-          className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-ui font-medium transition-all duration-200 cursor-pointer ${
+          className={`px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-ui font-medium transition-all duration-200 cursor-pointer ${
             activeTab === 'creatives'
               ? 'bg-white text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-black/5'
               : 'text-[#666666] hover:text-[#111111]'
           }`}
         >
-          <span>Creatives</span>
-          <span
-            className={`text-[11px] px-2 py-0.5 rounded-full font-medium transition-colors ${
-              activeTab === 'creatives'
-                ? 'bg-[#EAF6EE] text-[#0A6E35]'
-                : 'bg-[#E5E8E6] text-[#777777]'
-            }`}
-          >
-            Instagram
-          </span>
+          Creatives
         </button>
       </div>
 
