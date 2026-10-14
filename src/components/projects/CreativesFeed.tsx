@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import {
   Layers,
   X,
@@ -6,6 +7,7 @@ import {
   ChevronRight,
   Play,
 } from 'lucide-react'
+
 
 
 export interface InstagramChild {
@@ -227,10 +229,12 @@ export const CreativesFeed: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = 'unset'
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
     }
   }, [selectedPost])
 
@@ -309,97 +313,100 @@ export const CreativesFeed: React.FC = () => {
       </div>
 
       {/* ========================================== */}
-      {/* PURE IMAGE LIGHTBOX MODAL */}
+      {/* PURE IMAGE LIGHTBOX MODAL (PORTAL TO BODY) */}
       {/* ========================================== */}
-      {selectedPost && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8 bg-black/92 backdrop-blur-md animate-fade-in"
-          onClick={closeModal}
-        >
-          {/* Top Close Button */}
-          <button
-            onClick={closeModal}
-            aria-label="Close image preview"
-            className="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Centered Media Container */}
+      {selectedPost &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="relative max-w-[94vw] max-h-[88vh] flex items-center justify-center select-none"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[9999] w-screen h-screen flex items-center justify-center p-4 sm:p-8 bg-black/95 backdrop-blur-md animate-fade-in touch-none select-none"
+            onClick={closeModal}
           >
-            {currentSlide?.mediaType === 'VIDEO' ? (
-              <video
-                key={currentSlide.id}
-                src={currentSlide.mediaUrl}
-                controls
-                autoPlay
-                loop
-                playsInline
-                className="max-w-[94vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
-              />
-            ) : (
-              <img
-                key={currentSlide?.id}
-                src={
-                  currentSlide?.sizes?.full?.mediaUrl ||
-                  currentSlide?.sizes?.large?.mediaUrl ||
-                  currentSlide?.mediaUrl
-                }
-                alt="Grafino Creative Artwork"
-                className="max-w-[94vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
-              />
-            )}
+            {/* Top Right Close Button */}
+            <button
+              onClick={closeModal}
+              aria-label="Close image preview"
+              className="fixed top-5 right-5 z-[10000] w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs"
+            >
+              <X className="w-5 h-5 stroke-[2.2]" />
+            </button>
 
-            {/* Navigation Arrows for Carousel */}
-            {slides.length > 1 && (
-              <>
-                <button
-                  onClick={() =>
-                    setActiveSlideIndex(
-                      (prev) => (prev - 1 + slides.length) % slides.length
-                    )
+            {/* Exactly Centered Media Stage */}
+            <div
+              className="relative w-full h-full max-w-[92vw] max-h-[82vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {currentSlide?.mediaType === 'VIDEO' ? (
+                <video
+                  key={currentSlide.id}
+                  src={currentSlide.mediaUrl}
+                  controls
+                  autoPlay
+                  loop
+                  playsInline
+                  className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain rounded-xl shadow-2xl mx-auto block"
+                />
+              ) : (
+                <img
+                  key={currentSlide?.id}
+                  src={
+                    currentSlide?.sizes?.full?.mediaUrl ||
+                    currentSlide?.sizes?.large?.mediaUrl ||
+                    currentSlide?.mediaUrl
                   }
-                  aria-label="Previous slide"
-                  className="absolute left-2 sm:-left-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-30"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
+                  alt="Grafino Creative Artwork"
+                  className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain rounded-xl shadow-2xl mx-auto block"
+                />
+              )}
 
-                <button
-                  onClick={() =>
-                    setActiveSlideIndex((prev) => (prev + 1) % slides.length)
-                  }
-                  aria-label="Next slide"
-                  className="absolute right-2 sm:-right-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-30"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+              {/* Navigation Arrows for Carousel */}
+              {slides.length > 1 && (
+                <>
+                  <button
+                    onClick={() =>
+                      setActiveSlideIndex(
+                        (prev) => (prev - 1 + slides.length) % slides.length
+                      )
+                    }
+                    aria-label="Previous slide"
+                    className="fixed left-3 sm:absolute sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 sm:bg-black/75 hover:bg-black/90 active:scale-90 text-white flex items-center justify-center transition-all cursor-pointer z-30 shadow-lg border border-white/10"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
 
-                {/* Slide Dots Indicator */}
-                <div className="absolute -bottom-7 left-0 right-0 flex justify-center gap-1.5 z-30">
-                  {slides.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveSlideIndex(i)}
-                      aria-label={`Go to slide ${i + 1}`}
-                      className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                        i === activeSlideIndex
-                          ? 'w-6 bg-white'
-                          : 'w-1.5 bg-white/40 hover:bg-white/70'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+                  <button
+                    onClick={() =>
+                      setActiveSlideIndex((prev) => (prev + 1) % slides.length)
+                    }
+                    aria-label="Next slide"
+                    className="fixed right-3 sm:absolute sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 sm:bg-black/75 hover:bg-black/90 active:scale-90 text-white flex items-center justify-center transition-all cursor-pointer z-30 shadow-lg border border-white/10"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  {/* Slide Dots Indicator */}
+                  <div className="fixed bottom-6 left-0 right-0 flex justify-center gap-1.5 z-30 pointer-events-auto">
+                    {slides.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveSlideIndex(i)}
+                        aria-label={`Go to slide ${i + 1}`}
+                        className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                          i === activeSlideIndex
+                            ? 'w-6 bg-white'
+                            : 'w-1.5 bg-white/40 hover:bg-white/70'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   )
 }
