@@ -1,32 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Heart,
-  MessageCircle,
   Layers,
-  ExternalLink,
   X,
   ChevronLeft,
   ChevronRight,
   Play,
 } from 'lucide-react'
 
-// Clean vector Instagram icon
-const InstagramIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.75"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-)
 
 export interface InstagramChild {
   id: string
@@ -284,59 +264,7 @@ export const CreativesFeed: React.FC = () => {
   return (
     <div className="w-full">
       {/* ========================================== */}
-      {/* INSTAGRAM PROFILE HEADER BANNER */}
-      {/* ========================================== */}
-      <div className="bg-[#FFFFFF] border border-[#E0EBE5] rounded-2xl p-6 sm:p-8 mb-10 shadow-[0_2px_12px_rgba(0,0,0,0.02)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <div className="flex items-center gap-4 sm:gap-5">
-          <div className="relative w-16 h-16 sm:w-18 sm:h-18 shrink-0 rounded-full p-[2px] bg-gradient-to-tr from-[#0A6E35] to-[#EAF6EE]">
-            <img
-              src={feedData.profilePictureUrl || INITIAL_DATA.profilePictureUrl}
-              alt="Grafino Studio Instagram Avatar"
-              className="w-full h-full rounded-full object-cover bg-white"
-            />
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-heading font-medium text-lg sm:text-xl text-[#111111]">
-                @grafino_studio
-              </h3>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EAF6EE] text-[#0A6E35] text-[11px] font-ui font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0A6E35]" />
-                Creative Studio
-              </span>
-            </div>
-
-            <p className="font-body text-xs sm:text-sm text-[#666666] whitespace-pre-line leading-relaxed max-w-md">
-              {feedData.biography || INITIAL_DATA.biography}
-            </p>
-
-            <div className="flex items-center gap-4 mt-2 text-xs font-ui text-[#888888]">
-              <span>
-                <strong className="text-[#111111] font-semibold">{feedData.posts.length}</strong> posts
-              </span>
-              <span>
-                <strong className="text-[#111111] font-semibold">{feedData.followersCount || 27}</strong> followers
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Action Button */}
-        <a
-          href="https://www.instagram.com/grafino_studio/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EAF6EE] hover:bg-[#0A6E35] text-[#0A6E35] hover:text-white font-ui text-sm font-medium transition-all duration-200 border border-[#0A6E35]/20 hover:border-transparent shrink-0"
-        >
-          <InstagramIcon className="w-4 h-4" />
-          <span>Follow on Instagram</span>
-          <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-        </a>
-      </div>
-
-      {/* ========================================== */}
-      {/* INSTAGRAM POSTS GRID */}
+      {/* PURE IMAGES GRID */}
       {/* ========================================== */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
         {feedData.posts.map((post) => {
@@ -353,60 +281,27 @@ export const CreativesFeed: React.FC = () => {
             <article
               key={post.id}
               onClick={() => openModal(post)}
-              className="group cursor-pointer bg-[#FFFFFF] border border-[#E0EBE5] rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[#0A6E35]/40 hover:shadow-[0_8px_24px_rgba(10,110,53,0.06)] transition-all duration-300 flex flex-col"
+              className="group cursor-pointer bg-[#F4F6F5] border border-[#E0EBE5] rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[#0A6E35]/40 hover:shadow-[0_8px_24px_rgba(10,110,53,0.08)] transition-all duration-300"
             >
-              {/* Media Container with 1:1 Aspect Ratio */}
               <div className="relative aspect-square w-full bg-[#F4F6F5] overflow-hidden select-none">
                 <img
                   src={displayUrl}
-                  alt={post.caption.slice(0, 80)}
+                  alt="Grafino Creative Work"
                   className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                   loading="lazy"
                 />
 
-                {/* Badge: Carousel / Video */}
+                {/* Subtle Media Badges */}
                 {isCarousel && (
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white shadow-xs">
+                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white shadow-xs pointer-events-none">
                     <Layers className="w-3.5 h-3.5" />
                   </div>
                 )}
                 {isVideo && (
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white shadow-xs">
+                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white shadow-xs pointer-events-none">
                     <Play className="w-3.5 h-3.5 fill-white" />
                   </div>
                 )}
-
-                {/* Hover Glass Overlay */}
-                <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-250 flex items-center justify-center gap-6 text-white font-ui text-sm font-medium backdrop-blur-[2px]">
-                  <div className="flex items-center gap-1.5">
-                    <Heart className="w-5 h-5 fill-white stroke-white" />
-                    <span>{post.likeCount}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <MessageCircle className="w-5 h-5 fill-white stroke-white" />
-                    <span>{post.commentsCount}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Caption & Post Details */}
-              <div className="p-4 sm:p-5 flex flex-col justify-between grow">
-                <p className="font-body text-[13.5px] text-[#444444] line-clamp-3 leading-relaxed mb-3">
-                  {post.prunedCaption || post.caption}
-                </p>
-
-                <div className="flex items-center justify-between pt-3 border-t border-[#F0F2F1] text-xs font-ui text-[#888888]">
-                  <span>
-                    {new Date(post.timestamp).toLocaleDateString('en-US', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric',
-                    })}
-                  </span>
-                  <span className="text-[#0A6E35] font-medium group-hover:underline inline-flex items-center gap-1">
-                    Preview post →
-                  </span>
-                </div>
               </div>
             </article>
           )
@@ -414,196 +309,94 @@ export const CreativesFeed: React.FC = () => {
       </div>
 
       {/* ========================================== */}
-      {/* INTERACTIVE LIGHTBOX MODAL */}
+      {/* PURE IMAGE LIGHTBOX MODAL */}
       {/* ========================================== */}
       {selectedPost && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[100] flex flex-col justify-end sm:justify-center items-center p-0 sm:p-4 md:p-6 lg:p-8 bg-black/85 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 lg:p-8 bg-black/92 backdrop-blur-md animate-fade-in"
           onClick={closeModal}
         >
+          {/* Top Close Button */}
+          <button
+            onClick={closeModal}
+            aria-label="Close image preview"
+            className="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Centered Media Container */}
           <div
-            className="relative w-full max-w-[1050px] h-[92vh] sm:h-auto sm:max-h-[90vh] bg-white rounded-t-2xl sm:rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row border-0 sm:border sm:border-white/20 animate-scale-up"
+            className="relative max-w-[94vw] max-h-[88vh] flex items-center justify-center select-none"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* MOBILE ONLY: Top Header Bar with Profile & Close */}
-            <div className="flex lg:hidden items-center justify-between px-4 py-3 bg-white border-b border-[#F0F2F1] shrink-0 w-full z-20">
-              <div className="flex items-center gap-2.5">
-                <img
-                  src={feedData.profilePictureUrl || INITIAL_DATA.profilePictureUrl}
-                  alt="Grafino Studio"
-                  className="w-8 h-8 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-heading font-medium text-[13.5px] text-[#111111] leading-tight">
-                    grafino_studio
-                  </h4>
-                  <p className="text-[11px] font-ui text-[#888888] leading-none">
-                    Grafino - Design Studio
-                  </p>
-                </div>
-              </div>
+            {currentSlide?.mediaType === 'VIDEO' ? (
+              <video
+                key={currentSlide.id}
+                src={currentSlide.mediaUrl}
+                controls
+                autoPlay
+                loop
+                playsInline
+                className="max-w-[94vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
+              />
+            ) : (
+              <img
+                key={currentSlide?.id}
+                src={
+                  currentSlide?.sizes?.full?.mediaUrl ||
+                  currentSlide?.sizes?.large?.mediaUrl ||
+                  currentSlide?.mediaUrl
+                }
+                alt="Grafino Creative Artwork"
+                className="max-w-[94vw] max-h-[88vh] object-contain rounded-xl shadow-2xl"
+              />
+            )}
 
-              <div className="flex items-center gap-2.5">
-                {slides.length > 1 && (
-                  <span className="text-[11px] font-ui font-medium text-[#666666] bg-[#F4F6F5] px-2.5 py-1 rounded-full">
-                    {activeSlideIndex + 1} / {slides.length}
-                  </span>
-                )}
+            {/* Navigation Arrows for Carousel */}
+            {slides.length > 1 && (
+              <>
                 <button
-                  onClick={closeModal}
-                  aria-label="Close modal"
-                  className="w-8 h-8 rounded-full bg-[#F2F4F3] hover:bg-[#E5E8E6] text-[#222222] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* DESKTOP ONLY: Top Right Close Button */}
-            <button
-              onClick={closeModal}
-              aria-label="Close modal"
-              className="hidden lg:flex absolute top-4 right-4 z-30 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#222222] shadow-md items-center justify-center transition-all duration-150 cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* LEFT / TOP: Media Presentation Stage */}
-            <div className="relative w-full lg:w-[60%] h-[40vh] sm:h-[48vh] lg:h-auto lg:min-h-[560px] bg-[#111111] flex items-center justify-center select-none shrink-0 overflow-hidden">
-              {currentSlide?.mediaType === 'VIDEO' ? (
-                <video
-                  key={currentSlide.id}
-                  src={currentSlide.mediaUrl}
-                  controls
-                  autoPlay
-                  loop
-                  playsInline
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                <img
-                  key={currentSlide?.id}
-                  src={
-                    currentSlide?.sizes?.full?.mediaUrl ||
-                    currentSlide?.sizes?.large?.mediaUrl ||
-                    currentSlide?.mediaUrl
+                  onClick={() =>
+                    setActiveSlideIndex(
+                      (prev) => (prev - 1 + slides.length) % slides.length
+                    )
                   }
-                  alt={selectedPost.caption.slice(0, 60)}
-                  className="w-full h-full object-contain"
-                />
-              )}
-
-              {/* Navigation Arrows for Carousel */}
-              {slides.length > 1 && (
-                <>
-                  <button
-                    onClick={() =>
-                      setActiveSlideIndex(
-                        (prev) => (prev - 1 + slides.length) % slides.length
-                      )
-                    }
-                    aria-label="Previous slide"
-                    className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
-                  >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      setActiveSlideIndex((prev) => (prev + 1) % slides.length)
-                    }
-                    aria-label="Next slide"
-                    className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-20"
-                  >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-
-                  {/* Slide Dots Indicator */}
-                  <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-20">
-                    {slides.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveSlideIndex(i)}
-                        aria-label={`Go to slide ${i + 1}`}
-                        className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
-                          i === activeSlideIndex
-                            ? 'w-6 bg-white'
-                            : 'w-1.5 bg-white/50 hover:bg-white/80'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* RIGHT / BOTTOM: Post Details & Caption */}
-            <div className="w-full lg:w-[40%] p-4 sm:p-6 lg:p-7 flex flex-col justify-between overflow-y-auto flex-1 min-h-0 bg-white">
-              <div>
-                {/* DESKTOP ONLY: Header Profile Info */}
-                <div className="hidden lg:flex items-center justify-between pb-4 border-b border-[#F0F2F1] mb-5">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={feedData.profilePictureUrl || INITIAL_DATA.profilePictureUrl}
-                      alt="Grafino Studio"
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <div>
-                      <h4 className="font-heading font-medium text-[15px] text-[#111111] leading-none mb-1">
-                        grafino_studio
-                      </h4>
-                      <p className="text-[12px] font-ui text-[#888888]">
-                        Grafino - Design Studio
-                      </p>
-                    </div>
-                  </div>
-
-                  {slides.length > 1 && (
-                    <span className="text-xs font-ui font-medium text-[#777777] bg-[#F4F6F5] px-2.5 py-1 rounded-full">
-                      {activeSlideIndex + 1} / {slides.length}
-                    </span>
-                  )}
-                </div>
-
-                {/* Caption Content */}
-                <div className="font-body text-[13.5px] sm:text-[14px] text-[#333333] leading-relaxed whitespace-pre-line mb-6">
-                  {selectedPost.caption}
-                </div>
-              </div>
-
-              {/* Bottom Footer Actions */}
-              <div className="pt-3 sm:pt-4 border-t border-[#F0F2F1] mt-auto shrink-0">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <div className="flex items-center gap-4 text-xs sm:text-sm font-ui text-[#444444]">
-                    <span className="flex items-center gap-1.5 font-medium text-[#0A6E35]">
-                      <Heart className="w-4 h-4 fill-[#0A6E35]" />
-                      {selectedPost.likeCount} likes
-                    </span>
-                    <span className="text-[#888888] text-xs">
-                      {new Date(selectedPost.timestamp).toLocaleDateString('en-US', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Direct Link to View On Instagram */}
-                <a
-                  href={selectedPost.permalink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A6E35] hover:bg-[#085529] text-white font-ui text-xs sm:text-sm font-medium transition-colors duration-150 shadow-xs"
+                  aria-label="Previous slide"
+                  className="absolute left-2 sm:-left-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-30"
                 >
-                  <InstagramIcon className="w-4 h-4" />
-                  <span>View Post on Instagram</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-                </a>
-              </div>
-            </div>
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                <button
+                  onClick={() =>
+                    setActiveSlideIndex((prev) => (prev + 1) % slides.length)
+                  }
+                  aria-label="Next slide"
+                  className="absolute right-2 sm:-right-12 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all duration-150 cursor-pointer z-30"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+
+                {/* Slide Dots Indicator */}
+                <div className="absolute -bottom-7 left-0 right-0 flex justify-center gap-1.5 z-30">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveSlideIndex(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                        i === activeSlideIndex
+                          ? 'w-6 bg-white'
+                          : 'w-1.5 bg-white/40 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
