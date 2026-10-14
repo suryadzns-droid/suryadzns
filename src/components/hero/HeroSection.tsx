@@ -242,12 +242,12 @@ export const HeroSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Primary CTA Wrapper */}
-            <div ref={ctaWrapperRef} className="pt-1">
+            {/* Action Buttons: Primary "Explore my work" + Secondary "Get in touch" */}
+            <div ref={ctaWrapperRef} className="pt-1 flex flex-wrap items-center gap-3.5 sm:gap-4">
               <Link
                 to="/projects"
                 id="hero-cta-button"
-                className="hero-primary-cta group relative inline-flex items-center justify-center font-ui text-[15px] md:text-[16px] font-medium tracking-[-0.01em] text-white h-[50px] md:h-[52px] px-8 rounded-full outline-none select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#108A42] cursor-pointer"
+                className="hero-primary-cta group relative inline-flex items-center justify-center font-ui text-[15px] md:text-[16px] font-medium tracking-[-0.01em] text-white h-[50px] md:h-[52px] px-7 sm:px-8 rounded-full outline-none select-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#108A42] cursor-pointer"
               >
                 <span>Explore my work</span>
                 <ArrowRight
@@ -255,6 +255,27 @@ export const HeroSection: React.FC = () => {
                   aria-hidden="true"
                 />
               </Link>
+
+              <a
+                href="mailto:suryadzns@gmail.com"
+                id="hero-contact-button"
+                className="group relative inline-flex items-center justify-center font-ui text-[15px] md:text-[16px] font-medium tracking-[-0.01em] text-[#111111] hover:text-[#0A6E35] bg-[#FFFFFF] hover:bg-[#F4F9F6] border border-[#D5DDD8] hover:border-[#0A6E35]/40 h-[50px] md:h-[52px] px-7 sm:px-8 rounded-full outline-none select-none transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#108A42] cursor-pointer shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_16px_rgba(10,110,53,0.08)] active:scale-98"
+              >
+                <span>Get in touch</span>
+                <svg
+                  className="w-4 h-4 ml-2.5 stroke-[2] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#555555] group-hover:text-[#0A6E35]"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7" />
+                  <polyline points="7 7 17 7 17 17" />
+                </svg>
+              </a>
             </div>
 
           </div>
